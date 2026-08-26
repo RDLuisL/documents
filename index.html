@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <title>Documentos</title>
+
+</head>
+
+<body>
+
+    <div class="wrapper">
+
+
+        <!-- ============================= -->
+        <!-- CARRUSEL -->
+        <!-- ============================= -->
+
+        <div
+            class="carousel"
+            id="carousel"
+        >
+        </div>
+
+
+
+        <!-- ============================= -->
+        <!-- PREVIEW -->
+        <!-- ============================= -->
+
+        <div
+            class="preview"
+            id="preview"
+        >
+
+            <div class="preview__header">
+
+                <span
+                    class="preview__icon"
+                    id="previewIcon"
+                >
+                    📄
+                </span>
+
+                <span
+                    class="preview__title"
+                    id="previewTitle"
+                >
+                    Documento
+                </span>
+
+            </div>
+
+
+            <div
+                class="preview__content"
+                id="previewContent"
+            >
+            </div>
+
+        </div>
+
+
+
+        <!-- ============================= -->
+        <!-- RESUMEN SELECCIONADOS -->
+        <!-- ============================= -->
+
+        <div class="selection-info">
+
+            <span id="selectedCount">
+                0 documentos seleccionados
+            </span>
+
+        </div>
+
+
+
+        <!-- ============================= -->
+        <!-- BOTÓN ENVIAR -->
+        <!-- ============================= -->
+
+        <button
+            id="sendButton"
+            class="send-button"
+            type="button"
+            disabled
+        >
+            Enviar
+        </button>
+
+
+    </div>
+
+
+
+    <!-- ============================= -->
+    <!-- MODAL -->
+    <!-- ============================= -->
+
+    <div
+        class="modal"
+        id="sendModal"
+        aria-hidden="true"
+    >
+
+        <div class="modal__backdrop"></div>
+
+
+        <div class="modal__box">
+
+            <button
+                class="modal__close"
+                id="closeModal"
+                type="button"
+                aria-label="Cerrar"
+            >
+                ×
+            </button>
+
+
+            <h2>
+                Enviar documentos
+            </h2>
+
+
+            <p class="modal__description">
+
+                Selecciona cómo deseas compartir
+                los documentos elegidos.
+
+            </p>
+
+
+            <div
+                class="modal__selected"
+                id="modalSelected"
+            >
+            </div>
+
+
+            <div class="modal__actions">
+
+
+                <button
+                    id="sendWhatsApp"
+                    class="share-button share-button--whatsapp"
+                    type="button"
+                >
+
+                    <span>💬</span>
+
+                    WhatsApp
+
+                </button>
+
+
+                <button
+                    id="sendEmail"
+                    class="share-button share-button--email"
+                    type="button"
+                >
+
+                    <span>✉️</span>
+
+                    Correo
+
+                </button>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <script src="data.js"></script>
+
+    <script src="app.js"></script>
+
+</body>
+
+</html>

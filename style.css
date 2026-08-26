@@ -1,0 +1,804 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+
+    width: 100%;
+    min-height: 100%;
+}
+
+
+body {
+    font-family: "Work Sans", sans-serif;
+
+    background: linear-gradient(
+        60deg,
+        #420285,
+        #08BDBD
+    );
+}
+
+
+
+/* =========================================
+   CONTENEDOR PRINCIPAL
+========================================= */
+
+.wrapper {
+
+    width: 100%;
+
+    min-height: 100vh;
+
+    padding: 25px 15px 50px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 14px;
+}
+
+
+
+/* =========================================
+   CARRUSEL
+========================================= */
+
+.carousel {
+
+    position: relative;
+
+    width: 100%;
+
+    max-width: 500px;
+
+    height: 330px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    cursor: grab;
+
+    touch-action: none;
+
+    user-select: none;
+}
+
+
+.carousel:active {
+    cursor: grabbing;
+}
+
+
+
+/* =========================================
+   TARJETAS
+========================================= */
+
+.carousel__item {
+
+    position: absolute;
+
+    width: 100%;
+
+    padding: 0 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    filter: drop-shadow(
+        0 2px 4px rgba(0, 0, 0, 0.35)
+    );
+
+    will-change:
+        transform,
+        opacity;
+
+    transition:
+        transform 0.45s ease,
+        opacity 0.45s ease;
+
+    cursor: pointer;
+}
+
+
+
+/* =========================================
+   ICONO
+========================================= */
+
+.carousel__item-head {
+
+    position: relative;
+
+    z-index: 2;
+
+    width: 90px;
+
+    height: 90px;
+
+    margin-right: -45px;
+
+    padding: 14px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background-color: #d7f7fc;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-size: 48px;
+}
+
+
+
+/* =========================================
+   CUERPO DE TARJETA
+========================================= */
+
+.carousel__item-body {
+
+    width: 100%;
+
+    min-height: 96px;
+
+    padding:
+        16px
+        58px
+        16px
+        70px;
+
+    background-color: #ffffff;
+
+    border-radius: 8px;
+
+    display: flex;
+
+    align-items: center;
+
+    position: relative;
+}
+
+
+
+/* =========================================
+   TEXTO
+========================================= */
+
+.title {
+
+    margin: 0;
+
+    font-size: 18px;
+
+    font-weight: 500;
+
+    line-height: 1.25;
+
+    text-transform: uppercase;
+
+    color: #222222;
+}
+
+
+
+/* =========================================
+   CHECKBOX
+========================================= */
+
+.document-check {
+
+    position: absolute;
+
+    right: 18px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 24px;
+
+    height: 24px;
+
+    cursor: pointer;
+
+    accent-color: #08BDBD;
+}
+
+
+
+/* =========================================
+   TARJETA SELECCIONADA
+========================================= */
+
+.carousel__item.is-selected
+.carousel__item-body {
+
+    outline: 3px solid
+        rgba(8, 189, 189, 0.8);
+
+}
+
+
+
+/* =========================================
+   PREVIEW
+========================================= */
+
+.preview {
+
+    width: calc(100% - 24px);
+
+    max-width: 476px;
+
+    background-color: rgba(
+        255,
+        255,
+        255,
+        0.96
+    );
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 4px 18px
+        rgba(0, 0, 0, 0.25);
+}
+
+
+
+/* =========================================
+   CABECERA PREVIEW
+========================================= */
+
+.preview__header {
+
+    min-height: 52px;
+
+    padding: 10px 15px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    border-bottom:
+        1px solid #dddddd;
+
+    background-color: #ffffff;
+}
+
+
+.preview__icon {
+
+    font-size: 25px;
+
+    flex-shrink: 0;
+}
+
+
+.preview__title {
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    line-height: 1.2;
+
+    color: #333333;
+
+    text-transform: uppercase;
+}
+
+
+
+/* =========================================
+   CONTENIDO PREVIEW
+========================================= */
+
+.preview__content {
+
+    position: relative;
+
+    width: 100%;
+
+    height: 250px;
+
+    background-color: #eeeeee;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    overflow: hidden;
+}
+
+
+
+/* =========================================
+   PDF
+========================================= */
+
+.preview__pdf {
+
+    width: 100%;
+
+    height: 100%;
+
+    border: 0;
+
+    background: white;
+}
+
+
+
+/* =========================================
+   WEB
+========================================= */
+
+.preview__web {
+
+    width: 100%;
+
+    height: 100%;
+
+    padding: 30px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    gap: 15px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #f7f7f7,
+            #ffffff
+        );
+}
+
+
+.preview__web-icon {
+    font-size: 50px;
+}
+
+
+.preview__web-message {
+
+    margin: 0;
+
+    font-size: 16px;
+
+    font-weight: 500;
+
+    line-height: 1.4;
+
+    color: #444444;
+}
+
+
+
+/* =========================================
+   TEXTO PREVIEW
+========================================= */
+
+.preview__hint {
+
+    position: absolute;
+
+    bottom: 8px;
+
+    right: 10px;
+
+    padding: 5px 8px;
+
+    border-radius: 5px;
+
+    background-color:
+        rgba(0, 0, 0, 0.65);
+
+    color: white;
+
+    font-size: 11px;
+
+    pointer-events: none;
+}
+
+
+
+/* =========================================
+   DOCUMENTOS SELECCIONADOS
+========================================= */
+
+.selection-info {
+
+    width: 100%;
+
+    max-width: 476px;
+
+    text-align: center;
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: 500;
+}
+
+
+
+/* =========================================
+   BOTÓN ENVIAR
+========================================= */
+
+.send-button {
+
+    width: calc(100% - 24px);
+
+    max-width: 476px;
+
+    min-height: 52px;
+
+    border: 0;
+
+    border-radius: 10px;
+
+    background-color: #ffffff;
+
+    color: #420285;
+
+    font-family: inherit;
+
+    font-size: 17px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+}
+
+
+.send-button:hover:not(:disabled) {
+
+    transform: translateY(-2px);
+
+}
+
+
+.send-button:disabled {
+
+    opacity: 0.45;
+
+    cursor: not-allowed;
+
+}
+
+
+
+/* =========================================
+   MODAL
+========================================= */
+
+.modal {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 1000;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+}
+
+
+.modal.is-open {
+    display: flex;
+}
+
+
+.modal__backdrop {
+
+    position: absolute;
+
+    inset: 0;
+
+    background-color:
+        rgba(0, 0, 0, 0.6);
+}
+
+
+.modal__box {
+
+    position: relative;
+
+    z-index: 2;
+
+    width: 100%;
+
+    max-width: 420px;
+
+    padding: 28px;
+
+    border-radius: 16px;
+
+    background-color: white;
+
+    box-shadow:
+        0 15px 50px
+        rgba(0, 0, 0, 0.35);
+}
+
+
+.modal__box h2 {
+
+    margin:
+        0
+        35px
+        8px
+        0;
+
+    color: #222;
+
+}
+
+
+.modal__description {
+
+    margin:
+        0
+        0
+        18px;
+
+    color: #666;
+
+    line-height: 1.4;
+}
+
+
+
+/* =========================================
+   CERRAR MODAL
+========================================= */
+
+.modal__close {
+
+    position: absolute;
+
+    top: 12px;
+
+    right: 14px;
+
+    width: 36px;
+
+    height: 36px;
+
+    border: 0;
+
+    background: transparent;
+
+    font-size: 28px;
+
+    cursor: pointer;
+}
+
+
+
+/* =========================================
+   LISTA DEL MODAL
+========================================= */
+
+.modal__selected {
+
+    max-height: 180px;
+
+    overflow-y: auto;
+
+    margin-bottom: 20px;
+
+    padding: 12px;
+
+    border-radius: 8px;
+
+    background-color: #f4f4f4;
+
+    font-size: 13px;
+}
+
+
+.modal__selected-item {
+
+    padding: 5px 0;
+
+    border-bottom:
+        1px solid #dddddd;
+}
+
+
+.modal__selected-item:last-child {
+
+    border-bottom: 0;
+
+}
+
+
+
+/* =========================================
+   BOTONES COMPARTIR
+========================================= */
+
+.modal__actions {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap: 12px;
+}
+
+
+.share-button {
+
+    min-height: 55px;
+
+    border: 0;
+
+    border-radius: 10px;
+
+    font-family: inherit;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+
+.share-button span {
+
+    font-size: 21px;
+
+}
+
+
+.share-button--whatsapp {
+
+    background-color: #25D366;
+
+    color: white;
+}
+
+
+.share-button--email {
+
+    background-color: #eeeeee;
+
+    color: #333333;
+}
+
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .wrapper {
+
+        padding-left: 8px;
+
+        padding-right: 8px;
+
+    }
+
+
+    .carousel {
+
+        height: 300px;
+
+    }
+
+
+    .carousel__item-head {
+
+        width: 78px;
+
+        height: 78px;
+
+        margin-right: -39px;
+
+        font-size: 40px;
+
+    }
+
+
+    .carousel__item-body {
+
+        min-height: 86px;
+
+        padding-left: 60px;
+
+        padding-right: 50px;
+
+    }
+
+
+    .title {
+
+        font-size: 15px;
+
+    }
+
+
+    .preview__content {
+
+        height: 220px;
+
+    }
+
+
+    .modal__actions {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}

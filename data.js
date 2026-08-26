@@ -175,7 +175,16 @@ const documentos = [
         icono: "🤝",
         tipo: "archivo",
         enlace: "./documents/finiquito_luis_luna.pdf"
+    },
+
+        {
+        id: 23,
+        descripcion: "Título de Desarrollador",
+        icono: "🤝",
+        tipo: "archivo",
+        enlace: "./documents/4geeks_luis_luna.pdf"
     }
+
 
 ];
 

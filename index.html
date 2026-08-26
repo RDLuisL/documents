@@ -31,30 +31,55 @@
         href="style.css"
     >
 
-    <title>Documentos</title>
+    <title>Documentos de Luis Luna</title>
 
 </head>
 
+
 <body>
+
 
     <div class="wrapper">
 
 
-        <!-- ============================= -->
+        <!-- ================================= -->
+        <!-- ENCABEZADO -->
+        <!-- ================================= -->
+
+        <header class="page-header">
+
+            <div class="page-header__icon">
+                📂
+            </div>
+
+            <h1 class="page-header__title">
+                Documentos de Luis Luna
+            </h1>
+
+            <p class="page-header__subtitle">
+                Documentación profesional y certificaciones
+            </p>
+
+        </header>
+
+
+
+        <!-- ================================= -->
         <!-- CARRUSEL -->
-        <!-- ============================= -->
+        <!-- ================================= -->
 
         <div
             class="carousel"
             id="carousel"
         >
+            <!-- JavaScript crea las tarjetas aquí -->
         </div>
 
 
 
-        <!-- ============================= -->
+        <!-- ================================= -->
         <!-- PREVIEW -->
-        <!-- ============================= -->
+        <!-- ================================= -->
 
         <div
             class="preview"
@@ -90,9 +115,9 @@
 
 
 
-        <!-- ============================= -->
-        <!-- RESUMEN SELECCIONADOS -->
-        <!-- ============================= -->
+        <!-- ================================= -->
+        <!-- DOCUMENTOS SELECCIONADOS -->
+        <!-- ================================= -->
 
         <div class="selection-info">
 
@@ -104,9 +129,9 @@
 
 
 
-        <!-- ============================= -->
+        <!-- ================================= -->
         <!-- BOTÓN ENVIAR -->
-        <!-- ============================= -->
+        <!-- ================================= -->
 
         <button
             id="sendButton"
@@ -122,9 +147,9 @@
 
 
 
-    <!-- ============================= -->
+    <!-- ================================= -->
     <!-- MODAL -->
-    <!-- ============================= -->
+    <!-- ================================= -->
 
     <div
         class="modal"
@@ -137,6 +162,9 @@
 
         <div class="modal__box">
 
+
+            <!-- CERRAR MODAL -->
+
             <button
                 class="modal__close"
                 id="closeModal"
@@ -147,18 +175,19 @@
             </button>
 
 
+
             <h2>
                 Enviar documentos
             </h2>
 
 
             <p class="modal__description">
-
-                Selecciona cómo deseas compartir
-                los documentos elegidos.
-
+                Selecciona cómo deseas compartir los documentos elegidos.
             </p>
 
+
+
+            <!-- DOCUMENTOS SELECCIONADOS -->
 
             <div
                 class="modal__selected"
@@ -166,6 +195,9 @@
             >
             </div>
 
+
+
+            <!-- BOTONES DE ENVÍO -->
 
             <div class="modal__actions">
 
@@ -175,12 +207,10 @@
                     class="share-button share-button--whatsapp"
                     type="button"
                 >
-
                     <span>💬</span>
-
                     WhatsApp
-
                 </button>
+
 
 
                 <button
@@ -188,15 +218,13 @@
                     class="share-button share-button--email"
                     type="button"
                 >
-
                     <span>✉️</span>
-
                     Correo
-
                 </button>
 
 
             </div>
+
 
         </div>
 
@@ -204,9 +232,18 @@
 
 
 
+    <!-- ================================= -->
+    <!-- JAVASCRIPT -->
+    <!-- ================================= -->
+
+    <!-- IMPORTANTE:
+         data.js debe cargarse ANTES que app.js
+    -->
+
     <script src="data.js"></script>
 
     <script src="app.js"></script>
+
 
 </body>
 

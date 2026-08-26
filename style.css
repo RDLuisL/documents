@@ -1,3 +1,17 @@
+:root {
+    --olive: #96A142;
+    --wine: #5F051C;
+    --blush: #FFCFC5;
+    --cream: #FFF9F5;
+    --text-dark: #2B2020;
+    --white: #FFFFFF;
+}
+
+
+/* =========================================
+   CONFIGURACIÓN GENERAL
+========================================= */
+
 *,
 *::before,
 *::after {
@@ -18,13 +32,18 @@ body {
 body {
     font-family: "Work Sans", sans-serif;
 
-    background: linear-gradient(
-        60deg,
-        #420285,
-        #08BDBD
-    );
-}
+    font-weight: 400;
 
+    background:
+        linear-gradient(
+            145deg,
+            var(--wine) 0%,
+            #76102d 35%,
+            var(--olive) 100%
+        );
+
+    color: var(--text-dark);
+}
 
 
 /* =========================================
@@ -32,12 +51,11 @@ body {
 ========================================= */
 
 .wrapper {
-
     width: 100%;
 
     min-height: 100vh;
 
-    padding: 25px 15px 50px;
+    padding: 28px 15px 50px;
 
     display: flex;
 
@@ -51,13 +69,78 @@ body {
 }
 
 
+/* =========================================
+   ENCABEZADO
+========================================= */
+
+.page-header {
+    width: 100%;
+
+    max-width: 500px;
+
+    text-align: center;
+
+    margin-bottom: 0;
+
+    color: var(--blush);
+}
+
+
+.page-header__icon {
+    width: 58px;
+
+    height: 58px;
+
+    margin: 0 auto 10px;
+
+    border-radius: 50%;
+
+    background-color: var(--blush);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-size: 30px;
+
+    box-shadow:
+        0 4px 12px
+        rgba(0, 0, 0, 0.20);
+}
+
+
+.page-header__title {
+    margin: 0;
+
+    font-size: 29px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.3px;
+
+    color: var(--blush);
+}
+
+
+.page-header__subtitle {
+    margin: 7px 0 0;
+
+    font-size: 13px;
+
+    font-weight: 400;
+
+    color:
+        rgba(255, 207, 197, 0.82);
+}
+
 
 /* =========================================
    CARRUSEL
 ========================================= */
 
 .carousel {
-
     position: relative;
 
     width: 100%;
@@ -85,13 +168,11 @@ body {
 }
 
 
-
 /* =========================================
    TARJETAS
 ========================================= */
 
 .carousel__item {
-
     position: absolute;
 
     width: 100%;
@@ -106,9 +187,11 @@ body {
 
     visibility: hidden;
 
-    filter: drop-shadow(
-        0 2px 4px rgba(0, 0, 0, 0.35)
-    );
+    filter:
+        drop-shadow(
+            0 3px 5px
+            rgba(0, 0, 0, 0.28)
+        );
 
     will-change:
         transform,
@@ -122,13 +205,11 @@ body {
 }
 
 
-
 /* =========================================
-   ICONO
+   ICONO DE LA TARJETA
 ========================================= */
 
 .carousel__item-head {
-
     position: relative;
 
     z-index: 2;
@@ -145,7 +226,7 @@ body {
 
     border-radius: 50%;
 
-    background-color: #d7f7fc;
+    background-color: var(--olive);
 
     display: flex;
 
@@ -154,8 +235,11 @@ body {
     align-items: center;
 
     font-size: 48px;
-}
 
+    box-shadow:
+        0 3px 10px
+        rgba(95, 5, 28, 0.25);
+}
 
 
 /* =========================================
@@ -163,7 +247,6 @@ body {
 ========================================= */
 
 .carousel__item-body {
-
     width: 100%;
 
     min-height: 96px;
@@ -174,7 +257,7 @@ body {
         16px
         70px;
 
-    background-color: #ffffff;
+    background-color: var(--blush);
 
     border-radius: 8px;
 
@@ -183,16 +266,18 @@ body {
     align-items: center;
 
     position: relative;
+
+    border:
+        1px solid
+        rgba(95, 5, 28, 0.12);
 }
 
 
-
 /* =========================================
-   TEXTO
+   TÍTULO
 ========================================= */
 
 .title {
-
     margin: 0;
 
     font-size: 18px;
@@ -203,9 +288,8 @@ body {
 
     text-transform: uppercase;
 
-    color: #222222;
+    color: var(--wine);
 }
-
 
 
 /* =========================================
@@ -213,14 +297,14 @@ body {
 ========================================= */
 
 .document-check {
-
     position: absolute;
 
     right: 18px;
 
     top: 50%;
 
-    transform: translateY(-50%);
+    transform:
+        translateY(-50%);
 
     width: 24px;
 
@@ -228,9 +312,8 @@ body {
 
     cursor: pointer;
 
-    accent-color: #08BDBD;
+    accent-color: var(--wine);
 }
-
 
 
 /* =========================================
@@ -239,12 +322,14 @@ body {
 
 .carousel__item.is-selected
 .carousel__item-body {
+    outline:
+        3px solid
+        var(--olive);
 
-    outline: 3px solid
-        rgba(8, 189, 189, 0.8);
-
+    box-shadow:
+        0 0 0 4px
+        rgba(150, 161, 66, 0.20);
 }
-
 
 
 /* =========================================
@@ -252,27 +337,26 @@ body {
 ========================================= */
 
 .preview {
-
-    width: calc(100% - 24px);
+    width:
+        calc(100% - 24px);
 
     max-width: 476px;
 
-    background-color: rgba(
-        255,
-        255,
-        255,
-        0.96
-    );
+    background-color:
+        var(--cream);
 
-    border-radius: 10px;
+    border-radius: 12px;
 
     overflow: hidden;
 
+    border:
+        2px solid
+        rgba(255, 207, 197, 0.65);
+
     box-shadow:
-        0 4px 18px
+        0 6px 20px
         rgba(0, 0, 0, 0.25);
 }
-
 
 
 /* =========================================
@@ -280,7 +364,6 @@ body {
 ========================================= */
 
 .preview__header {
-
     min-height: 52px;
 
     padding: 10px 15px;
@@ -291,15 +374,15 @@ body {
 
     gap: 10px;
 
-    border-bottom:
-        1px solid #dddddd;
+    background-color: var(--wine);
 
-    background-color: #ffffff;
+    border-bottom:
+        4px solid
+        var(--olive);
 }
 
 
 .preview__icon {
-
     font-size: 25px;
 
     flex-shrink: 0;
@@ -307,18 +390,16 @@ body {
 
 
 .preview__title {
-
     font-size: 14px;
 
     font-weight: 600;
 
     line-height: 1.2;
 
-    color: #333333;
+    color: var(--blush);
 
     text-transform: uppercase;
 }
-
 
 
 /* =========================================
@@ -326,14 +407,13 @@ body {
 ========================================= */
 
 .preview__content {
-
     position: relative;
 
     width: 100%;
 
     height: 250px;
 
-    background-color: #eeeeee;
+    background-color: var(--cream);
 
     display: flex;
 
@@ -345,30 +425,26 @@ body {
 }
 
 
-
 /* =========================================
    PDF
 ========================================= */
 
 .preview__pdf {
-
     width: 100%;
 
     height: 100%;
 
     border: 0;
 
-    background: white;
+    background-color: white;
 }
 
 
-
 /* =========================================
-   WEB
+   WEB / WHATSAPP
 ========================================= */
 
 .preview__web {
-
     width: 100%;
 
     height: 100%;
@@ -390,8 +466,8 @@ body {
     background:
         linear-gradient(
             145deg,
-            #f7f7f7,
-            #ffffff
+            var(--cream),
+            var(--blush)
         );
 }
 
@@ -402,7 +478,6 @@ body {
 
 
 .preview__web-message {
-
     margin: 0;
 
     font-size: 16px;
@@ -411,17 +486,15 @@ body {
 
     line-height: 1.4;
 
-    color: #444444;
+    color: var(--wine);
 }
 
 
-
 /* =========================================
-   TEXTO PREVIEW
+   INDICACIÓN PREVIEW
 ========================================= */
 
 .preview__hint {
-
     position: absolute;
 
     bottom: 8px;
@@ -433,9 +506,9 @@ body {
     border-radius: 5px;
 
     background-color:
-        rgba(0, 0, 0, 0.65);
+        rgba(95, 5, 28, 0.85);
 
-    color: white;
+    color: var(--blush);
 
     font-size: 11px;
 
@@ -443,20 +516,18 @@ body {
 }
 
 
-
 /* =========================================
-   DOCUMENTOS SELECCIONADOS
+   SELECCIONADOS
 ========================================= */
 
 .selection-info {
-
     width: 100%;
 
     max-width: 476px;
 
     text-align: center;
 
-    color: white;
+    color: var(--blush);
 
     font-size: 14px;
 
@@ -464,26 +535,28 @@ body {
 }
 
 
-
 /* =========================================
    BOTÓN ENVIAR
 ========================================= */
 
 .send-button {
-
-    width: calc(100% - 24px);
+    width:
+        calc(100% - 24px);
 
     max-width: 476px;
 
     min-height: 52px;
 
-    border: 0;
+    border:
+        2px solid
+        var(--blush);
 
     border-radius: 10px;
 
-    background-color: #ffffff;
+    background-color:
+        var(--wine);
 
-    color: #420285;
+    color: var(--blush);
 
     font-family: inherit;
 
@@ -495,25 +568,25 @@ body {
 
     transition:
         transform 0.2s ease,
+        background-color 0.2s ease,
         opacity 0.2s ease;
 }
 
 
 .send-button:hover:not(:disabled) {
+    transform:
+        translateY(-2px);
 
-    transform: translateY(-2px);
-
+    background-color:
+        #760927;
 }
 
 
 .send-button:disabled {
-
     opacity: 0.45;
 
     cursor: not-allowed;
-
 }
-
 
 
 /* =========================================
@@ -521,7 +594,6 @@ body {
 ========================================= */
 
 .modal {
-
     position: fixed;
 
     inset: 0;
@@ -544,18 +616,16 @@ body {
 
 
 .modal__backdrop {
-
     position: absolute;
 
     inset: 0;
 
     background-color:
-        rgba(0, 0, 0, 0.6);
+        rgba(0, 0, 0, 0.65);
 }
 
 
 .modal__box {
-
     position: relative;
 
     z-index: 2;
@@ -568,7 +638,12 @@ body {
 
     border-radius: 16px;
 
-    background-color: white;
+    background-color:
+        var(--cream);
+
+    border:
+        3px solid
+        var(--olive);
 
     box-shadow:
         0 15px 50px
@@ -577,30 +652,26 @@ body {
 
 
 .modal__box h2 {
-
     margin:
         0
         35px
         8px
         0;
 
-    color: #222;
-
+    color: var(--wine);
 }
 
 
 .modal__description {
-
     margin:
         0
         0
         18px;
 
-    color: #666;
+    color: #665555;
 
     line-height: 1.4;
 }
-
 
 
 /* =========================================
@@ -608,7 +679,6 @@ body {
 ========================================= */
 
 .modal__close {
-
     position: absolute;
 
     top: 12px;
@@ -623,11 +693,12 @@ body {
 
     background: transparent;
 
+    color: var(--wine);
+
     font-size: 28px;
 
     cursor: pointer;
 }
-
 
 
 /* =========================================
@@ -635,7 +706,6 @@ body {
 ========================================= */
 
 .modal__selected {
-
     max-height: 180px;
 
     overflow-y: auto;
@@ -646,27 +716,25 @@ body {
 
     border-radius: 8px;
 
-    background-color: #f4f4f4;
+    background-color:
+        rgba(255, 207, 197, 0.35);
 
     font-size: 13px;
 }
 
 
 .modal__selected-item {
-
     padding: 5px 0;
 
     border-bottom:
-        1px solid #dddddd;
+        1px solid
+        rgba(95, 5, 28, 0.15);
 }
 
 
 .modal__selected-item:last-child {
-
     border-bottom: 0;
-
 }
-
 
 
 /* =========================================
@@ -674,7 +742,6 @@ body {
 ========================================= */
 
 .modal__actions {
-
     display: grid;
 
     grid-template-columns:
@@ -686,7 +753,6 @@ body {
 
 
 .share-button {
-
     min-height: 55px;
 
     border: 0;
@@ -712,27 +778,24 @@ body {
 
 
 .share-button span {
-
     font-size: 21px;
-
 }
 
 
 .share-button--whatsapp {
-
-    background-color: #25D366;
+    background-color:
+        #25D366;
 
     color: white;
 }
 
 
 .share-button--email {
+    background-color:
+        var(--wine);
 
-    background-color: #eeeeee;
-
-    color: #333333;
+    color: var(--blush);
 }
-
 
 
 /* =========================================
@@ -742,23 +805,30 @@ body {
 @media (max-width: 600px) {
 
     .wrapper {
-
         padding-left: 8px;
 
         padding-right: 8px;
 
+        padding-top: 20px;
+    }
+
+
+    .page-header__title {
+        font-size: 24px;
+    }
+
+
+    .page-header__subtitle {
+        font-size: 12px;
     }
 
 
     .carousel {
-
         height: 300px;
-
     }
 
 
     .carousel__item-head {
-
         width: 78px;
 
         height: 78px;
@@ -766,39 +836,30 @@ body {
         margin-right: -39px;
 
         font-size: 40px;
-
     }
 
 
     .carousel__item-body {
-
         min-height: 86px;
 
         padding-left: 60px;
 
         padding-right: 50px;
-
     }
 
 
     .title {
-
         font-size: 15px;
-
     }
 
 
     .preview__content {
-
         height: 220px;
-
     }
 
 
     .modal__actions {
-
         grid-template-columns: 1fr;
-
     }
 
 }

@@ -25,12 +25,6 @@ const closeModal =
 const modalSelected =
     document.getElementById("modalSelected");
 
-const sendWhatsApp =
-    document.getElementById("sendWhatsApp");
-
-const sendEmail =
-    document.getElementById("sendEmail");
-
 
 
 // ==========================================
@@ -1449,40 +1443,6 @@ async function compartirArchivos(
     return false;
 
 }
-
-
-
-// ==========================================
-// WHATSAPP
-// ==========================================
-
-sendWhatsApp.addEventListener(
-    "click",
-    async () => {
-
-        await compartirArchivos(
-            "whatsapp"
-        );
-
-    }
-);
-
-
-
-// ==========================================
-// CORREO
-// ==========================================
-
-sendEmail.addEventListener(
-    "click",
-    async () => {
-
-        await compartirArchivos(
-            "email"
-        );
-
-    }
-);
 
 
 

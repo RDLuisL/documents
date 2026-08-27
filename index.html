@@ -22,7 +22,7 @@
     >
 
     <link
-        href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet"
     >
 
@@ -39,7 +39,12 @@
 <body>
 
 
-    <div class="wrapper">
+    <!-- CAPA OSCURA SOBRE EL METAL -->
+    <div class="background-overlay"></div>
+
+
+
+    <main class="wrapper">
 
 
         <!-- ================================= -->
@@ -49,16 +54,21 @@
         <header class="page-header">
 
             <div class="page-header__icon">
-                📂
+                ⚙️
             </div>
 
-            <h1 class="page-header__title">
-                Documentos de Luis Luna
-            </h1>
 
-            <p class="page-header__subtitle">
-                Documentación profesional y certificaciones
-            </p>
+            <div>
+
+                <h1 class="page-header__title">
+                    Documentos de Luis Luna
+                </h1>
+
+                <p class="page-header__subtitle">
+                    Documentación profesional y certificaciones
+                </p>
+
+            </div>
 
         </header>
 
@@ -68,12 +78,16 @@
         <!-- CARRUSEL -->
         <!-- ================================= -->
 
-        <div
-            class="carousel"
-            id="carousel"
-        >
-            <!-- JavaScript crea las tarjetas aquí -->
-        </div>
+        <section class="carousel-area">
+
+            <div
+                class="carousel"
+                id="carousel"
+            >
+                <!-- JavaScript genera las tarjetas -->
+            </div>
+
+        </section>
 
 
 
@@ -81,7 +95,7 @@
         <!-- PREVIEW -->
         <!-- ================================= -->
 
-        <div
+        <section
             class="preview"
             id="preview"
         >
@@ -94,6 +108,7 @@
                 >
                     📄
                 </span>
+
 
                 <span
                     class="preview__title"
@@ -111,7 +126,7 @@
             >
             </div>
 
-        </div>
+        </section>
 
 
 
@@ -120,6 +135,10 @@
         <!-- ================================= -->
 
         <div class="selection-info">
+
+            <span class="selection-info__icon">
+                ☑
+            </span>
 
             <span id="selectedCount">
                 0 documentos seleccionados
@@ -139,16 +158,24 @@
             type="button"
             disabled
         >
-            Enviar
+
+            <span class="send-button__icon">
+                ➤
+            </span>
+
+            <span>
+                Enviar documentos
+            </span>
+
         </button>
 
 
-    </div>
+    </main>
 
 
 
     <!-- ================================= -->
-    <!-- MODAL -->
+    <!-- MODAL DE ENVÍO -->
     <!-- ================================= -->
 
     <div
@@ -163,8 +190,6 @@
         <div class="modal__box">
 
 
-            <!-- CERRAR MODAL -->
-
             <button
                 class="modal__close"
                 id="closeModal"
@@ -175,6 +200,10 @@
             </button>
 
 
+            <div class="modal__badge">
+                ⚙️
+            </div>
+
 
             <h2>
                 Enviar documentos
@@ -182,12 +211,10 @@
 
 
             <p class="modal__description">
-                Selecciona cómo deseas compartir los documentos elegidos.
+                Selecciona cómo deseas compartir
+                los documentos elegidos.
             </p>
 
-
-
-            <!-- DOCUMENTOS SELECCIONADOS -->
 
             <div
                 class="modal__selected"
@@ -195,9 +222,6 @@
             >
             </div>
 
-
-
-            <!-- BOTONES DE ENVÍO -->
 
             <div class="modal__actions">
 
@@ -207,10 +231,12 @@
                     class="share-button share-button--whatsapp"
                     type="button"
                 >
-                    <span>💬</span>
-                    WhatsApp
-                </button>
 
+                    <span>💬</span>
+
+                    WhatsApp
+
+                </button>
 
 
                 <button
@@ -218,13 +244,15 @@
                     class="share-button share-button--email"
                     type="button"
                 >
+
                     <span>✉️</span>
+
                     Correo
+
                 </button>
 
 
             </div>
-
 
         </div>
 
@@ -235,10 +263,6 @@
     <!-- ================================= -->
     <!-- JAVASCRIPT -->
     <!-- ================================= -->
-
-    <!-- IMPORTANTE:
-         data.js debe cargarse ANTES que app.js
-    -->
 
     <script src="data.js"></script>
 

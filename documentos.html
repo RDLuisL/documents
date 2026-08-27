@@ -3,6 +3,22 @@
 
 <head>
 
+<script>
+
+    if (
+        sessionStorage.getItem(
+            "documentosAutorizados"
+        ) !== "true"
+    ) {
+
+        window.location.replace(
+            "./index.html"
+        );
+
+    }
+
+</script>
+
     <meta charset="UTF-8">
 
     <meta

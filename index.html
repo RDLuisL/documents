@@ -39,11 +39,15 @@
 <body>
 
 
-    <!-- Fondo oscuro sobre background.jpg -->
+    <!-- Fondo -->
 
     <div class="background-overlay"></div>
 
 
+
+    <!-- ===================================== -->
+    <!-- MENÚ PRINCIPAL -->
+    <!-- ===================================== -->
 
     <main class="menu">
 
@@ -112,9 +116,10 @@
 
             <!-- DOCUMENTOS -->
 
-            <a
-                href="./documentos.html"
+            <button
+                id="documentsButton"
                 class="menu-button"
+                type="button"
             >
 
                 <span class="menu-button__icon">
@@ -139,7 +144,7 @@
                     ›
                 </span>
 
-            </a>
+            </button>
 
 
         </nav>
@@ -162,6 +167,136 @@
 
 
     </main>
+
+
+
+    <!-- ===================================== -->
+    <!-- MODAL DE ACCESO -->
+    <!-- ===================================== -->
+
+    <div
+        class="pin-modal"
+        id="pinModal"
+        aria-hidden="true"
+    >
+
+
+        <!-- FONDO -->
+
+        <div
+            class="pin-modal__backdrop"
+            id="pinBackdrop"
+        ></div>
+
+
+
+        <!-- CAJA -->
+
+        <div
+            class="pin-modal__box"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="pinTitle"
+        >
+
+
+            <!-- CERRAR -->
+
+            <button
+                id="closePinModal"
+                class="pin-modal__close"
+                type="button"
+                aria-label="Cerrar"
+            >
+                ×
+            </button>
+
+
+
+            <!-- ICONO -->
+
+            <div class="pin-modal__icon">
+                🔒
+            </div>
+
+
+
+            <!-- TÍTULO -->
+
+            <h2 id="pinTitle">
+                Acceso protegido
+            </h2>
+
+
+            <p class="pin-modal__description">
+                Ingresa tu clave de acceso para abrir los documentos.
+            </p>
+
+
+
+            <!-- FORMULARIO -->
+
+            <form id="pinForm">
+
+
+                <label
+                    class="pin-label"
+                    for="pinInput"
+                >
+                    Clave de acceso
+                </label>
+
+
+                <input
+                    id="pinInput"
+                    class="pin-input"
+                    type="password"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
+                    maxlength="6"
+                    autocomplete="off"
+                    placeholder="••••••"
+                    aria-describedby="pinMessage"
+                >
+
+
+
+                <!-- MENSAJE -->
+
+                <p
+                    class="pin-message"
+                    id="pinMessage"
+                    aria-live="polite"
+                ></p>
+
+
+
+                <!-- ENTRAR -->
+
+                <button
+                    class="pin-submit"
+                    type="submit"
+                >
+
+                    <span>
+                        🔓
+                    </span>
+
+                    Ingresar
+
+                </button>
+
+
+            </form>
+
+
+        </div>
+
+    </div>
+
+
+
+    <script src="menu.js"></script>
 
 
 </body>

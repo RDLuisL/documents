@@ -4,15 +4,15 @@
 
 :root {
 
-    --graphite: #171b1e;
+    --graphite: #15191c;
 
     --graphite-soft: #20262a;
 
-    --steel-dark: #2b3237;
+    --steel-dark: #2d3439;
 
     --steel: #59636b;
 
-    --steel-medium: #7d878d;
+    --steel-medium: #899398;
 
     --steel-light: #d8dde0;
 
@@ -20,17 +20,19 @@
 
     --hazard: #f2b705;
 
-    --hazard-dark: #bd8c00;
+    --hazard-light: #ffd447;
 
-    --orange: #d66b19;
+    --hazard-dark: #b88700;
 
-    --white: #f7f8f8;
+    --industrial-orange: #d86b18;
+
+    --white: #ffffff;
 
     --glass-dark:
-        rgba(25, 30, 34, 0.88);
+        rgba(20, 25, 29, 0.88);
 
     --glass-light:
-        rgba(238, 241, 242, 0.93);
+        rgba(235, 239, 241, 0.92);
 
     --shadow:
         0 18px 40px
@@ -39,8 +41,9 @@
 }
 
 
+
 /* =========================================
-   GENERAL
+   RESET
 ========================================= */
 
 *,
@@ -66,6 +69,11 @@ body {
 }
 
 
+
+/* =========================================
+   BODY / BACKGROUND
+========================================= */
+
 body {
 
     min-height: 100vh;
@@ -74,12 +82,13 @@ body {
         "Work Sans",
         sans-serif;
 
-    color: var(--white);
+    font-weight: 400;
+
+    color:
+        var(--white);
 
 
-    /* =====================================
-       FONDO DE ACERO FIJO
-    ===================================== */
+    /* IMAGEN DE FONDO */
 
     background-image:
         url("./background.jpg");
@@ -99,8 +108,9 @@ body {
 }
 
 
+
 /* =========================================
-   CAPA SOBRE EL FONDO
+   CAPA SOBRE BACKGROUND
 ========================================= */
 
 .background-overlay {
@@ -117,18 +127,19 @@ body {
     background:
 
         radial-gradient(
-            circle at top,
-            rgba(255, 255, 255, 0.08),
+            circle at top center,
+            rgba(255, 255, 255, 0.10),
             transparent 42%
         ),
 
         linear-gradient(
             180deg,
-            rgba(9, 12, 14, 0.34),
-            rgba(9, 12, 14, 0.62)
+            rgba(10, 12, 14, 0.28),
+            rgba(10, 12, 14, 0.64)
         );
 
 }
+
 
 
 /* =========================================
@@ -161,50 +172,60 @@ body {
 }
 
 
+
 /* =========================================
-   ENCABEZADO
+   HEADER
 ========================================= */
 
 .page-header {
 
-    width: calc(100% - 24px);
+    width:
+        calc(100% - 24px);
 
-    max-width: 476px;
+    max-width:
+        476px;
 
-    min-height: 80px;
+
+    min-height:
+        80px;
+
 
     padding:
         14px
         18px;
 
-    display: flex;
 
-    align-items: center;
+    display:
+        flex;
 
-    gap: 15px;
+    align-items:
+        center;
+
+    gap:
+        15px;
 
 
     background:
+
         linear-gradient(
             135deg,
-            rgba(23, 27, 30, 0.94),
-            rgba(43, 50, 55, 0.88)
+            rgba(21, 25, 28, 0.95),
+            rgba(45, 52, 57, 0.90)
         );
 
 
     border:
-
         1px solid
         rgba(255, 255, 255, 0.18);
 
 
     border-left:
-
         5px solid
         var(--hazard);
 
 
-    border-radius: 12px;
+    border-radius:
+        12px;
 
 
     box-shadow:
@@ -221,54 +242,90 @@ body {
 }
 
 
-/* ICONO */
+.page-header__content {
+
+    min-width: 0;
+
+}
+
 
 .page-header__icon {
 
-    width: 50px;
+    width:
+        50px;
 
-    height: 50px;
+    height:
+        50px;
 
-    flex-shrink: 0;
 
-    display: flex;
+    flex-shrink:
+        0;
 
-    justify-content: center;
 
-    align-items: center;
+    display:
+        flex;
 
-    border-radius: 50%;
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+
+    border-radius:
+        50%;
+
 
     background:
-        var(--hazard);
+
+        linear-gradient(
+            145deg,
+            var(--hazard-light),
+            var(--hazard)
+        );
+
 
     color:
         var(--graphite);
 
-    font-size: 27px;
+
+    font-size:
+        27px;
+
 
     box-shadow:
 
         inset
-        0 0 0 2px
-        rgba(0, 0, 0, 0.15),
+        0 1px 1px
+        rgba(255, 255, 255, 0.55),
 
-        0 4px 12px
-        rgba(0, 0, 0, 0.35);
+        0 5px 13px
+        rgba(0, 0, 0, 0.40);
 
 }
 
 
 .page-header__title {
 
-    margin: 0;
+    margin:
+        0;
 
-    font-size: 23px;
 
-    font-weight: 700;
+    font-size:
+        23px;
+
+
+    font-weight:
+        700;
+
+
+    line-height:
+        1.15;
+
 
     letter-spacing:
         0.3px;
+
 
     color:
         var(--white);
@@ -279,13 +336,22 @@ body {
 .page-header__subtitle {
 
     margin:
-        4px
+        5px
         0
         0;
 
-    font-size: 12px;
 
-    font-weight: 400;
+    font-size:
+        12px;
+
+
+    font-weight:
+        400;
+
+
+    line-height:
+        1.3;
+
 
     color:
         var(--steel-light);
@@ -293,24 +359,28 @@ body {
 }
 
 
+
 /* =========================================
-   ZONA DEL CARRUSEL
+   ÁREA DEL CARRUSEL
 ========================================= */
 
 .carousel-area {
 
-    position: relative;
-
-    width: calc(100% - 10px);
-
-    max-width: 520px;
-
-    border-radius: 20px;
+    position:
+        relative;
 
 
-    /*
-       Efecto de plataforma flotante
-    */
+    width:
+        calc(100% - 10px);
+
+
+    max-width:
+        520px;
+
+
+    border-radius:
+        20px;
+
 
     background:
         rgba(20, 24, 27, 0.12);
@@ -319,7 +389,7 @@ body {
     box-shadow:
 
         0 24px 50px
-        rgba(0, 0, 0, 0.32);
+        rgba(0, 0, 0, 0.30);
 
 
     backdrop-filter:
@@ -332,42 +402,66 @@ body {
 }
 
 
+
 /* =========================================
    CARRUSEL
 ========================================= */
 
 .carousel {
 
-    position: relative;
+    position:
+        relative;
 
-    width: 100%;
 
-    max-width: 500px;
+    width:
+        100%;
 
-    height: 330px;
 
-    margin: auto;
+    max-width:
+        500px;
 
-    display: flex;
 
-    justify-content: center;
+    height:
+        330px;
 
-    align-items: center;
 
-    cursor: grab;
+    margin:
+        auto;
 
-    touch-action: none;
 
-    user-select: none;
+    display:
+        flex;
+
+
+    justify-content:
+        center;
+
+
+    align-items:
+        center;
+
+
+    cursor:
+        grab;
+
+
+    touch-action:
+        none;
+
+
+    user-select:
+        none;
 
 }
 
 
 .carousel:active {
 
-    cursor: grabbing;
+    cursor:
+        grabbing;
 
 }
+
 
 
 /* =========================================
@@ -376,23 +470,37 @@ body {
 
 .carousel__item {
 
-    position: absolute;
+    position:
+        absolute;
 
-    width: 100%;
+
+    width:
+        100%;
+
 
     padding:
         0
         12px;
 
-    display: flex;
 
-    align-items: center;
+    display:
+        flex;
 
-    opacity: 0;
 
-    visibility: hidden;
+    align-items:
+        center;
 
-    cursor: pointer;
+
+    opacity:
+        0;
+
+
+    visibility:
+        hidden;
+
+
+    cursor:
+        pointer;
 
 
     filter:
@@ -410,60 +518,84 @@ body {
 
     transition:
 
-        transform 0.45s ease,
+        transform
+        0.45s
+        ease,
 
-        opacity 0.45s ease;
+        opacity
+        0.45s
+        ease;
 
 }
 
 
+
 /* =========================================
-   CÍRCULO DEL ICONO
+   ICONO TARJETA
 ========================================= */
 
 .carousel__item-head {
 
-    position: relative;
+    position:
+        relative;
 
-    z-index: 3;
 
-    width: 90px;
+    z-index:
+        3;
 
-    height: 90px;
+
+    width:
+        90px;
+
+
+    height:
+        90px;
+
 
     margin-right:
         -45px;
 
-    padding: 14px;
 
-    flex-shrink: 0;
+    padding:
+        14px;
 
 
-    border-radius: 50%;
+    flex-shrink:
+        0;
+
+
+    border-radius:
+        50%;
 
 
     background:
 
         linear-gradient(
             145deg,
-            var(--hazard),
+            var(--hazard-light),
             var(--hazard-dark)
         );
 
 
     border:
-
         3px solid
         var(--graphite);
 
 
-    display: flex;
+    display:
+        flex;
 
-    justify-content: center;
 
-    align-items: center;
+    justify-content:
+        center;
 
-    font-size: 46px;
+
+    align-items:
+        center;
+
+
+    font-size:
+        46px;
 
 
     box-shadow:
@@ -478,17 +610,24 @@ body {
 }
 
 
+
 /* =========================================
-   CUERPO DE TARJETA
+   CUERPO TARJETA
 ========================================= */
 
 .carousel__item-body {
 
-    position: relative;
+    position:
+        relative;
 
-    width: 100%;
 
-    min-height: 96px;
+    width:
+        100%;
+
+
+    min-height:
+        96px;
+
 
     padding:
 
@@ -498,24 +637,26 @@ body {
         70px;
 
 
-    display: flex;
+    display:
+        flex;
 
-    align-items: center;
+
+    align-items:
+        center;
 
 
     background:
 
         linear-gradient(
             135deg,
-            rgba(244, 246, 247, 0.97),
-            rgba(196, 202, 205, 0.96)
+            rgba(245, 247, 248, 0.98),
+            rgba(190, 198, 202, 0.97)
         );
 
 
     border:
-
         1px solid
-        rgba(255, 255, 255, 0.8);
+        rgba(255, 255, 255, 0.82);
 
 
     border-radius:
@@ -538,21 +679,34 @@ body {
 }
 
 
-/* Línea industrial */
+
+/* LÍNEA AMARILLA INDUSTRIAL */
 
 .carousel__item-body::before {
 
-    content: "";
+    content:
+        "";
 
-    position: absolute;
 
-    left: 55px;
+    position:
+        absolute;
 
-    top: 0;
 
-    bottom: 0;
+    left:
+        55px;
 
-    width: 4px;
+
+    top:
+        0;
+
+
+    bottom:
+        0;
+
+
+    width:
+        4px;
+
 
     background:
         var(--hazard);
@@ -560,26 +714,38 @@ body {
 }
 
 
+
 /* =========================================
-   TÍTULO DE TARJETA
+   TEXTO TARJETA
 ========================================= */
 
 .title {
 
-    margin: 0;
+    margin:
+        0;
 
-    font-size: 17px;
 
-    font-weight: 600;
+    font-size:
+        17px;
 
-    line-height: 1.25;
 
-    text-transform: uppercase;
+    font-weight:
+        600;
+
+
+    line-height:
+        1.25;
+
+
+    text-transform:
+        uppercase;
+
 
     color:
         var(--graphite);
 
 }
+
 
 
 /* =========================================
@@ -588,25 +754,39 @@ body {
 
 .document-check {
 
-    position: absolute;
+    position:
+        absolute;
 
-    right: 18px;
 
-    top: 50%;
+    right:
+        18px;
+
+
+    top:
+        50%;
+
 
     transform:
         translateY(-50%);
 
-    width: 24px;
 
-    height: 24px;
+    width:
+        24px;
 
-    cursor: pointer;
+
+    height:
+        24px;
+
+
+    cursor:
+        pointer;
+
 
     accent-color:
         var(--hazard-dark);
 
 }
+
 
 
 /* =========================================
@@ -617,7 +797,6 @@ body {
 .carousel__item-body {
 
     outline:
-
         3px solid
         var(--hazard);
 
@@ -625,62 +804,54 @@ body {
     box-shadow:
 
         0 0 0 5px
-        rgba(242, 183, 5, 0.20),
+        rgba(242, 183, 5, 0.22),
 
-        0 15px 30px
-        rgba(0, 0, 0, 0.45);
+        0 16px 32px
+        rgba(0, 0, 0, 0.48);
 
 }
 
 
+
 /* =========================================
-   PREVIEW FLOTANTE
+   PREVIEW
 ========================================= */
 
 .preview {
 
-    position: relative;
+    position:
+        relative;
+
 
     width:
         calc(100% - 24px);
 
+
     max-width:
         476px;
-
-
-    border-radius:
-        14px;
 
 
     overflow:
         hidden;
 
 
-    background:
+    border-radius:
+        14px;
 
-        rgba(
-            20,
-            25,
-            29,
-            0.92
-        );
+
+    background:
+        rgba(20, 25, 29, 0.92);
 
 
     border:
-
         1px solid
-        rgba(
-            255,
-            255,
-            255,
-            0.20
-        );
+        rgba(255, 255, 255, 0.20);
 
 
     box-shadow:
 
         0 22px 45px
-        rgba(0, 0, 0, 0.48);
+        rgba(0, 0, 0, 0.50);
 
 
     backdrop-filter:
@@ -696,13 +867,17 @@ body {
 
 
     transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
+
+        transform
+        0.25s
+        ease,
+
+        box-shadow
+        0.25s
+        ease;
 
 }
 
-
-/* Sensación de flotar */
 
 .preview:hover {
 
@@ -713,13 +888,14 @@ body {
     box-shadow:
 
         0 28px 55px
-        rgba(0, 0, 0, 0.55);
+        rgba(0, 0, 0, 0.57);
 
 }
 
 
+
 /* =========================================
-   CABECERA PREVIEW
+   HEADER PREVIEW
 ========================================= */
 
 .preview__header {
@@ -727,15 +903,19 @@ body {
     min-height:
         56px;
 
+
     padding:
         10px
         15px;
 
+
     display:
         flex;
 
+
     align-items:
         center;
+
 
     gap:
         10px;
@@ -751,7 +931,6 @@ body {
 
 
     border-bottom:
-
         4px solid
         var(--hazard);
 
@@ -760,15 +939,25 @@ body {
 
 .preview__icon {
 
-    width: 34px;
+    width:
+        34px;
 
-    height: 34px;
+
+    height:
+        34px;
+
+
+    flex-shrink:
+        0;
+
 
     display:
         flex;
 
+
     justify-content:
         center;
+
 
     align-items:
         center;
@@ -793,19 +982,24 @@ body {
     font-size:
         14px;
 
+
     font-weight:
         600;
+
 
     line-height:
         1.2;
 
+
     color:
         var(--white);
+
 
     text-transform:
         uppercase;
 
 }
+
 
 
 /* =========================================
@@ -817,8 +1011,10 @@ body {
     position:
         relative;
 
+
     width:
         100%;
+
 
     height:
         250px;
@@ -828,24 +1024,28 @@ body {
 
         linear-gradient(
             145deg,
-            rgba(224, 228, 230, 0.96),
-            rgba(177, 184, 188, 0.96)
+            rgba(225, 229, 231, 0.97),
+            rgba(175, 183, 187, 0.97)
         );
 
 
     display:
         flex;
 
+
     justify-content:
         center;
 
+
     align-items:
         center;
+
 
     overflow:
         hidden;
 
 }
+
 
 
 /* =========================================
@@ -857,16 +1057,20 @@ body {
     width:
         100%;
 
+
     height:
         100%;
 
+
     border:
         0;
+
 
     background:
         white;
 
 }
+
 
 
 /* =========================================
@@ -878,8 +1082,10 @@ body {
     width:
         100%;
 
+
     height:
         100%;
+
 
     padding:
         30px;
@@ -888,17 +1094,22 @@ body {
     display:
         flex;
 
+
     flex-direction:
         column;
+
 
     justify-content:
         center;
 
+
     align-items:
         center;
 
+
     text-align:
         center;
+
 
     gap:
         15px;
@@ -928,14 +1139,18 @@ body {
     margin:
         0;
 
+
     font-size:
         16px;
+
 
     font-weight:
         600;
 
+
     line-height:
         1.4;
+
 
     color:
         var(--graphite);
@@ -943,8 +1158,9 @@ body {
 }
 
 
+
 /* =========================================
-   INDICACIÓN PREVIEW
+   MENSAJE SOBRE PREVIEW
 ========================================= */
 
 .preview__hint {
@@ -952,8 +1168,10 @@ body {
     position:
         absolute;
 
+
     right:
         10px;
+
 
     bottom:
         8px;
@@ -969,13 +1187,7 @@ body {
 
 
     background:
-
-        rgba(
-            23,
-            27,
-            30,
-            0.88
-        );
+        rgba(21, 25, 28, 0.88);
 
 
     color:
@@ -992,14 +1204,16 @@ body {
 }
 
 
+
 /* =========================================
-   CONTADOR
+   SELECCIONADOS
 ========================================= */
 
 .selection-info {
 
     width:
         calc(100% - 24px);
+
 
     max-width:
         476px;
@@ -1013,8 +1227,10 @@ body {
     display:
         flex;
 
+
     justify-content:
         center;
+
 
     align-items:
         center;
@@ -1028,43 +1244,36 @@ body {
         8px;
 
 
-    color:
-        var(--steel-white);
-
-
     background:
-
-        rgba(
-            23,
-            27,
-            30,
-            0.82
-        );
+        rgba(21, 25, 28, 0.84);
 
 
     border:
-
         1px solid
-        rgba(
-            255,
-            255,
-            255,
-            0.12
-        );
+        rgba(255, 255, 255, 0.13);
+
+
+    color:
+        var(--steel-white);
 
 
     box-shadow:
 
         0 8px 22px
-        rgba(0, 0, 0, 0.32);
+        rgba(0, 0, 0, 0.35);
 
 
     backdrop-filter:
         blur(8px);
 
 
+    -webkit-backdrop-filter:
+        blur(8px);
+
+
     font-size:
         13px;
+
 
     font-weight:
         500;
@@ -1080,8 +1289,9 @@ body {
 }
 
 
+
 /* =========================================
-   BOTÓN ENVIAR FLOTANTE
+   BOTÓN ENVIAR
 ========================================= */
 
 .send-button {
@@ -1089,8 +1299,10 @@ body {
     width:
         calc(100% - 24px);
 
+
     max-width:
         476px;
+
 
     min-height:
         56px;
@@ -1109,7 +1321,7 @@ body {
 
         linear-gradient(
             180deg,
-            #ffd137,
+            var(--hazard-light),
             var(--hazard)
         );
 
@@ -1145,11 +1357,14 @@ body {
     display:
         flex;
 
+
     justify-content:
         center;
 
+
     align-items:
         center;
+
 
     gap:
         10px;
@@ -1158,7 +1373,7 @@ body {
     box-shadow:
 
         0 16px 30px
-        rgba(0, 0, 0, 0.46),
+        rgba(0, 0, 0, 0.48),
 
         inset
         0 1px 0
@@ -1167,11 +1382,17 @@ body {
 
     transition:
 
-        transform 0.2s ease,
+        transform
+        0.2s
+        ease,
 
-        box-shadow 0.2s ease,
+        box-shadow
+        0.2s
+        ease,
 
-        filter 0.2s ease;
+        filter
+        0.2s
+        ease;
 
 }
 
@@ -1185,7 +1406,7 @@ body {
     box-shadow:
 
         0 22px 40px
-        rgba(0, 0, 0, 0.55);
+        rgba(0, 0, 0, 0.58);
 
 }
 
@@ -1201,10 +1422,12 @@ body {
 .send-button:disabled {
 
     opacity:
-        0.48;
+        0.46;
+
 
     filter:
-        grayscale(0.6);
+        grayscale(0.65);
+
 
     cursor:
         not-allowed;
@@ -1220,6 +1443,7 @@ body {
 }
 
 
+
 /* =========================================
    MODAL
 ========================================= */
@@ -1229,8 +1453,10 @@ body {
     position:
         fixed;
 
+
     inset:
         0;
+
 
     z-index:
         1000;
@@ -1242,6 +1468,7 @@ body {
 
     align-items:
         center;
+
 
     justify-content:
         center;
@@ -1261,29 +1488,34 @@ body {
 }
 
 
+
+/* =========================================
+   FONDO MODAL
+========================================= */
+
 .modal__backdrop {
 
     position:
         absolute;
+
 
     inset:
         0;
 
 
     background:
-
-        rgba(
-            5,
-            7,
-            8,
-            0.78
-        );
+        rgba(5, 7, 8, 0.80);
 
 
     backdrop-filter:
         blur(5px);
 
+
+    -webkit-backdrop-filter:
+        blur(5px);
+
 }
+
 
 
 /* =========================================
@@ -1295,12 +1527,14 @@ body {
     position:
         relative;
 
+
     z-index:
         2;
 
 
     width:
         100%;
+
 
     max-width:
         420px;
@@ -1319,12 +1553,11 @@ body {
         linear-gradient(
             145deg,
             var(--steel-white),
-            #b9c0c4
+            #b8c0c4
         );
 
 
     border:
-
         2px solid
         var(--hazard);
 
@@ -1336,15 +1569,21 @@ body {
     box-shadow:
 
         0 25px 65px
-        rgba(0, 0, 0, 0.65);
+        rgba(0, 0, 0, 0.68);
 
 }
 
+
+
+/* =========================================
+   ICONO MODAL
+========================================= */
 
 .modal__badge {
 
     width:
         48px;
+
 
     height:
         48px;
@@ -1354,26 +1593,39 @@ body {
         12px;
 
 
-    border-radius:
-        50%;
-
-
     display:
         flex;
 
-    align-items:
-        center;
 
     justify-content:
         center;
 
 
+    align-items:
+        center;
+
+
+    border-radius:
+        50%;
+
+
     background:
-        var(--hazard);
+
+        linear-gradient(
+            145deg,
+            var(--hazard-light),
+            var(--hazard)
+        );
 
 
     font-size:
         25px;
+
+
+    box-shadow:
+
+        0 6px 14px
+        rgba(0, 0, 0, 0.28);
 
 }
 
@@ -1385,6 +1637,7 @@ body {
         35px
         8px
         0;
+
 
     color:
         var(--graphite);
@@ -1399,13 +1652,16 @@ body {
         0
         18px;
 
+
     color:
         var(--steel-dark);
+
 
     line-height:
         1.4;
 
 }
+
 
 
 /* =========================================
@@ -1417,8 +1673,10 @@ body {
     position:
         absolute;
 
+
     top:
         12px;
+
 
     right:
         14px;
@@ -1426,6 +1684,7 @@ body {
 
     width:
         38px;
+
 
     height:
         38px;
@@ -1457,8 +1716,9 @@ body {
 }
 
 
+
 /* =========================================
-   LISTA MODAL
+   DOCUMENTOS DEL MODAL
 ========================================= */
 
 .modal__selected {
@@ -1466,12 +1726,13 @@ body {
     max-height:
         180px;
 
+
     overflow-y:
         auto;
 
 
     margin-bottom:
-        20px;
+        18px;
 
 
     padding:
@@ -1483,13 +1744,7 @@ body {
 
 
     background:
-
-        rgba(
-            23,
-            27,
-            30,
-            0.90
-        );
+        rgba(21, 25, 28, 0.92);
 
 
     color:
@@ -1499,25 +1754,26 @@ body {
     font-size:
         13px;
 
+
+    box-shadow:
+
+        inset
+        0 2px 6px
+        rgba(0, 0, 0, 0.35);
+
 }
 
 
 .modal__selected-item {
 
     padding:
-        6px
+        7px
         0;
 
 
     border-bottom:
-
         1px solid
-        rgba(
-            255,
-            255,
-            255,
-            0.12
-        );
+        rgba(255, 255, 255, 0.12);
 
 }
 
@@ -1530,29 +1786,176 @@ body {
 }
 
 
+
 /* =========================================
-   BOTONES MODAL
+   SLIDER COMPARTIR
 ========================================= */
 
-.modal__actions {
+.share-slider {
 
-    display:
-        grid;
+    width:
+        100%;
 
-    grid-template-columns:
-        1fr
-        1fr;
 
-    gap:
-        12px;
+    margin-top:
+        20px;
 
 }
 
 
-.share-button {
 
-    min-height:
-        56px;
+/* =========================================
+   PISTA DEL SLIDER
+========================================= */
+
+.share-slider__track {
+
+    position:
+        relative;
+
+
+    width:
+        100%;
+
+
+    height:
+        64px;
+
+
+    padding:
+        5px;
+
+
+    overflow:
+        hidden;
+
+
+    border-radius:
+        32px;
+
+
+    background:
+
+        linear-gradient(
+            145deg,
+            var(--graphite),
+            var(--steel-dark)
+        );
+
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.18);
+
+
+    box-shadow:
+
+        inset
+        0 2px 8px
+        rgba(0, 0, 0, 0.58),
+
+        0 8px 20px
+        rgba(0, 0, 0, 0.25);
+
+}
+
+
+
+/* =========================================
+   TEXTO DEL SLIDER
+========================================= */
+
+.share-slider__text {
+
+    position:
+        absolute;
+
+
+    inset:
+        0;
+
+
+    display:
+        flex;
+
+
+    justify-content:
+        center;
+
+
+    align-items:
+        center;
+
+
+    padding-left:
+        58px;
+
+
+    padding-right:
+        15px;
+
+
+    pointer-events:
+        none;
+
+
+    font-size:
+        13px;
+
+
+    font-weight:
+        700;
+
+
+    text-transform:
+        uppercase;
+
+
+    letter-spacing:
+        0.5px;
+
+
+    color:
+        var(--steel-light);
+
+
+    transition:
+        opacity
+        0.25s
+        ease;
+
+}
+
+
+
+/* =========================================
+   BOTÓN DESLIZABLE
+========================================= */
+
+.share-slider__handle {
+
+    position:
+        absolute;
+
+
+    left:
+        5px;
+
+
+    top:
+        5px;
+
+
+    z-index:
+        3;
+
+
+    width:
+        54px;
+
+
+    height:
+        54px;
 
 
     border:
@@ -1560,15 +1963,36 @@ body {
 
 
     border-radius:
-        9px;
+        50%;
 
 
-    font-family:
-        inherit;
+    display:
+        flex;
+
+
+    justify-content:
+        center;
+
+
+    align-items:
+        center;
+
+
+    background:
+
+        linear-gradient(
+            145deg,
+            var(--hazard-light),
+            var(--hazard)
+        );
+
+
+    color:
+        var(--graphite);
 
 
     font-size:
-        15px;
+        27px;
 
 
     font-weight:
@@ -1576,52 +2000,106 @@ body {
 
 
     cursor:
-        pointer;
+        grab;
 
 
-    display:
-        flex;
+    touch-action:
+        none;
 
-    justify-content:
-        center;
 
-    align-items:
-        center;
+    user-select:
+        none;
 
-    gap:
-        8px;
+
+    box-shadow:
+
+        0 5px 12px
+        rgba(0, 0, 0, 0.48),
+
+        inset
+        0 1px 0
+        rgba(255, 255, 255, 0.65);
+
+
+    transition:
+
+        left
+        0.25s
+        ease,
+
+        transform
+        0.15s
+        ease,
+
+        box-shadow
+        0.15s
+        ease;
 
 }
 
 
-.share-button span {
+.share-slider__handle:active {
 
-    font-size:
-        21px;
+    cursor:
+        grabbing;
+
+
+    transform:
+        scale(0.94);
 
 }
 
 
-.share-button--whatsapp {
+
+/* =========================================
+   SLIDER COMPLETADO
+========================================= */
+
+.share-slider.is-complete
+.share-slider__track {
 
     background:
-        #25d366;
+
+        linear-gradient(
+            90deg,
+            var(--hazard-dark),
+            var(--hazard)
+        );
+
+}
+
+
+.share-slider.is-complete
+.share-slider__text {
+
+    opacity:
+        0;
+
 
     color:
-        white;
-
-}
-
-
-.share-button--email {
-
-    background:
         var(--graphite);
 
-    color:
+}
+
+
+
+/* =========================================
+   FOCUS
+========================================= */
+
+button:focus-visible,
+input:focus-visible {
+
+    outline:
+        3px solid
         var(--hazard);
 
+
+    outline-offset:
+        3px;
+
 }
+
 
 
 /* =========================================
@@ -1633,9 +2111,8 @@ body {
     body {
 
         /*
-         En algunos móviles Safari no maneja
-         perfectamente background-attachment fixed.
-         La capa sigue viéndose fija visualmente.
+           Mejora compatibilidad
+           con Safari/iPhone
         */
 
         background-attachment:
@@ -1663,10 +2140,26 @@ body {
     }
 
 
+    .page-header__icon {
+
+        width:
+            44px;
+
+
+        height:
+            44px;
+
+
+        font-size:
+            23px;
+
+    }
+
+
     .page-header__title {
 
         font-size:
-            20px;
+            19px;
 
     }
 
@@ -1692,11 +2185,14 @@ body {
         width:
             78px;
 
+
         height:
             78px;
 
+
         margin-right:
             -39px;
+
 
         font-size:
             39px;
@@ -1709,8 +2205,10 @@ body {
         min-height:
             86px;
 
+
         padding-left:
             59px;
+
 
         padding-right:
             50px;
@@ -1742,10 +2240,112 @@ body {
     }
 
 
-    .modal__actions {
+    .modal__box {
 
-        grid-template-columns:
-            1fr;
+        padding:
+            24px
+            18px;
+
+    }
+
+
+    .share-slider__text {
+
+        font-size:
+            12px;
+
+    }
+
+}
+
+
+
+/* =========================================
+   PANTALLAS MUY PEQUEÑAS
+========================================= */
+
+@media (max-width: 380px) {
+
+    .page-header__title {
+
+        font-size:
+            17px;
+
+    }
+
+
+    .page-header__subtitle {
+
+        font-size:
+            10px;
+
+    }
+
+
+    .carousel__item-head {
+
+        width:
+            72px;
+
+
+        height:
+            72px;
+
+
+        margin-right:
+            -36px;
+
+
+        font-size:
+            35px;
+
+    }
+
+
+    .carousel__item-body {
+
+        padding-left:
+            55px;
+
+
+        padding-right:
+            46px;
+
+    }
+
+
+    .title {
+
+        font-size:
+            13px;
+
+    }
+
+
+    .document-check {
+
+        right:
+            14px;
+
+
+        width:
+            22px;
+
+
+        height:
+            22px;
+
+    }
+
+
+    .share-slider__text {
+
+        font-size:
+            11px;
+
+
+        padding-left:
+            62px;
 
     }
 

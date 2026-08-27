@@ -10,6 +10,8 @@
         content="width=device-width, initial-scale=1.0"
     >
 
+    <!-- GOOGLE FONT -->
+
     <link
         rel="preconnect"
         href="https://fonts.googleapis.com"
@@ -26,12 +28,18 @@
         rel="stylesheet"
     >
 
+
+    <!-- CSS -->
+
     <link
         rel="stylesheet"
         href="style.css"
     >
 
-    <title>Documentos de Luis Luna</title>
+
+    <title>
+        Documentos de Luis Luna
+    </title>
 
 </head>
 
@@ -39,10 +47,17 @@
 <body>
 
 
-    <!-- CAPA OSCURA SOBRE EL METAL -->
+    <!-- ===================================== -->
+    <!-- CAPA SOBRE EL BACKGROUND -->
+    <!-- ===================================== -->
+
     <div class="background-overlay"></div>
 
 
+
+    <!-- ===================================== -->
+    <!-- CONTENIDO PRINCIPAL -->
+    <!-- ===================================== -->
 
     <main class="wrapper">
 
@@ -53,22 +68,31 @@
 
         <header class="page-header">
 
+
             <div class="page-header__icon">
                 ⚙️
             </div>
 
 
-            <div>
+            <div class="page-header__content">
+
 
                 <h1 class="page-header__title">
+
                     Documentos de Luis Luna
+
                 </h1>
 
+
                 <p class="page-header__subtitle">
+
                     Documentación profesional y certificaciones
+
                 </p>
 
+
             </div>
+
 
         </header>
 
@@ -80,12 +104,19 @@
 
         <section class="carousel-area">
 
+
             <div
                 class="carousel"
                 id="carousel"
             >
-                <!-- JavaScript genera las tarjetas -->
+
+                <!--
+                    Las tarjetas se generan
+                    automáticamente desde data.js
+                -->
+
             </div>
+
 
         </section>
 
@@ -100,7 +131,11 @@
             id="preview"
         >
 
+
+            <!-- CABECERA PREVIEW -->
+
             <div class="preview__header">
+
 
                 <span
                     class="preview__icon"
@@ -117,8 +152,12 @@
                     Documento
                 </span>
 
+
             </div>
 
+
+
+            <!-- CONTENIDO PREVIEW -->
 
             <div
                 class="preview__content"
@@ -126,23 +165,29 @@
             >
             </div>
 
+
         </section>
 
 
 
         <!-- ================================= -->
-        <!-- DOCUMENTOS SELECCIONADOS -->
+        <!-- CONTADOR DE SELECCIONADOS -->
         <!-- ================================= -->
 
         <div class="selection-info">
+
 
             <span class="selection-info__icon">
                 ☑
             </span>
 
+
             <span id="selectedCount">
+
                 0 documentos seleccionados
+
             </span>
+
 
         </div>
 
@@ -159,13 +204,20 @@
             disabled
         >
 
+
             <span class="send-button__icon">
+
                 ➤
+
             </span>
 
+
             <span>
+
                 Enviar documentos
+
             </span>
+
 
         </button>
 
@@ -174,9 +226,9 @@
 
 
 
-    <!-- ================================= -->
-    <!-- MODAL DE ENVÍO -->
-    <!-- ================================= -->
+    <!-- ===================================== -->
+    <!-- MODAL COMPARTIR -->
+    <!-- ===================================== -->
 
     <div
         class="modal"
@@ -184,11 +236,19 @@
         aria-hidden="true"
     >
 
+
+        <!-- FONDO OSCURO DEL MODAL -->
+
         <div class="modal__backdrop"></div>
 
 
+
+        <!-- CAJA MODAL -->
+
         <div class="modal__box">
 
+
+            <!-- CERRAR -->
 
             <button
                 class="modal__close"
@@ -196,25 +256,45 @@
                 type="button"
                 aria-label="Cerrar"
             >
+
                 ×
+
             </button>
 
 
+
+            <!-- ICONO -->
+
             <div class="modal__badge">
+
                 ⚙️
+
             </div>
 
 
+
+            <!-- TÍTULO -->
+
             <h2>
-                Enviar documentos
+
+                Compartir documentos
+
             </h2>
 
 
+
             <p class="modal__description">
-                Selecciona cómo deseas compartir
-                los documentos elegidos.
+
+                Revisa los documentos seleccionados
+                y desliza el control para compartirlos.
+
             </p>
 
+
+
+            <!-- ================================= -->
+            <!-- LISTA DE DOCUMENTOS -->
+            <!-- ================================= -->
 
             <div
                 class="modal__selected"
@@ -223,46 +303,64 @@
             </div>
 
 
-            <div class="modal__actions">
+
+            <!-- ================================= -->
+            <!-- SLIDER COMPARTIR -->
+            <!-- ================================= -->
+
+            <div
+                class="share-slider"
+                id="shareSlider"
+            >
 
 
-                <button
-                    id="sendWhatsApp"
-                    class="share-button share-button--whatsapp"
-                    type="button"
+                <div
+                    class="share-slider__track"
+                    id="shareTrack"
                 >
 
-                    <span>💬</span>
 
-                    WhatsApp
+                    <span class="share-slider__text">
 
-                </button>
+                        Desliza para compartir
+
+                    </span>
 
 
-                <button
-                    id="sendEmail"
-                    class="share-button share-button--email"
-                    type="button"
-                >
 
-                    <span>✉️</span>
+                    <button
+                        class="share-slider__handle"
+                        id="shareHandle"
+                        type="button"
+                        aria-label="Deslizar para compartir"
+                    >
 
-                    Correo
+                        ↗
 
-                </button>
+                    </button>
+
+
+                </div>
 
 
             </div>
 
+
         </div>
+
 
     </div>
 
 
 
-    <!-- ================================= -->
+    <!-- ===================================== -->
     <!-- JAVASCRIPT -->
-    <!-- ================================= -->
+    <!-- ===================================== -->
+
+    <!-- IMPORTANTE:
+         data.js siempre debe cargarse
+         ANTES de app.js
+    -->
 
     <script src="data.js"></script>
 

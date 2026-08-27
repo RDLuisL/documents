@@ -1263,28 +1263,11 @@ body {
             var(--hazard)
         );
 
-    color:
-        var(--graphite);
-
-    font-size: 27px;
-
-    font-weight: 700;
-
     cursor: grab;
 
     touch-action: none;
 
     user-select: none;
-
-    -webkit-user-select: none;
-
-    box-shadow:
-        0 5px 12px
-        rgba(0, 0, 0, 0.48);
-
-    transition:
-        left 0.25s ease,
-        transform 0.15s ease;
 }
 
 
@@ -1484,4 +1467,17 @@ input:focus-visible {
     .share-slider__text {
         font-size: 11px;
     }
+}
+
+.share-slider__icon {
+
+    width: 26px;
+
+    height: 26px;
+
+    display: block;
+
+    pointer-events: none;
+
+    user-select: none;
 }

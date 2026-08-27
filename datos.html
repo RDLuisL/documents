@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="datos.css"
+    >
+
+    <title>Datos personales | Luis Luna</title>
+
+</head>
+
+
+<body>
+
+
+    <!-- Fondo -->
+
+    <div class="background-overlay"></div>
+
+
+
+    <!-- ===================================== -->
+    <!-- CONTENIDO -->
+    <!-- ===================================== -->
+
+    <main class="profile-page">
+
+
+        <!-- ================================= -->
+        <!-- BARRA SUPERIOR -->
+        <!-- ================================= -->
+
+        <header class="top-bar">
+
+            <a
+                href="./index.html"
+                class="back-button"
+                aria-label="Volver al menú principal"
+            >
+                ‹
+            </a>
+
+
+            <div class="top-bar__content">
+
+                <h1>
+                    Datos personales
+                </h1>
+
+                <span>
+                    Información de contacto
+                </span>
+
+            </div>
+
+
+            <div class="top-bar__icon">
+                👤
+            </div>
+
+        </header>
+
+
+
+        <!-- ================================= -->
+        <!-- TARJETA PRINCIPAL -->
+        <!-- ================================= -->
+
+        <section class="profile-card">
+
+
+            <!-- FRANJA INDUSTRIAL -->
+
+            <div class="profile-card__stripe"></div>
+
+
+
+            <!-- ================================= -->
+            <!-- FOTO -->
+            <!-- ================================= -->
+
+            <div class="profile-photo-wrapper">
+
+                <div class="profile-photo-border">
+
+                    <img
+                        src="./perfil_luis_luna.jpg"
+                        alt="Luis Antonio Luna Serrano"
+                        class="profile-photo"
+                    >
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ================================= -->
+            <!-- IDENTIDAD -->
+            <!-- ================================= -->
+
+            <div class="profile-identity">
+
+                <span class="profile-label">
+                    Perfil personal
+                </span>
+
+
+                <h2>
+                    Luis Antonio
+                    <br>
+                    Luna Serrano
+                </h2>
+
+
+                <div class="profile-divider"></div>
+
+            </div>
+
+
+
+            <!-- ================================= -->
+            <!-- DATOS -->
+            <!-- ================================= -->
+
+            <div class="profile-data">
+
+
+                <!-- RUT -->
+
+                <div class="data-row">
+
+                    <div class="data-icon">
+                        🪪
+                    </div>
+
+                    <div class="data-content">
+
+                        <span class="data-label">
+                            RUT
+                        </span>
+
+                        <strong>
+                            25.871.741-4
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CORREO -->
+
+                <a
+                    href="mailto:luislunandroid@gmail.com"
+                    class="data-row data-row--link"
+                >
+
+                    <div class="data-icon">
+                        ✉️
+                    </div>
+
+                    <div class="data-content">
+
+                        <span class="data-label">
+                            Correo
+                        </span>
+
+                        <strong>
+                            luislunandroid@gmail.com
+                        </strong>
+
+                    </div>
+
+                    <span class="data-arrow">
+                        ›
+                    </span>
+
+                </a>
+
+
+
+                <!-- TELÉFONO -->
+
+                <a
+                    href="tel:+56944887031"
+                    class="data-row data-row--link"
+                >
+
+                    <div class="data-icon">
+                        📱
+                    </div>
+
+                    <div class="data-content">
+
+                        <span class="data-label">
+                            Teléfono
+                        </span>
+
+                        <strong>
+                            +56 9 4488 7031
+                        </strong>
+
+                    </div>
+
+                    <span class="data-arrow">
+                        ›
+                    </span>
+
+                </a>
+
+
+            </div>
+
+
+
+            <!-- ================================= -->
+            <!-- AGREGAR CONTACTO -->
+            <!-- ================================= -->
+
+            <button
+                class="contact-button"
+                id="addContactButton"
+                type="button"
+            >
+
+                <span class="contact-button__icon">
+                    ＋
+                </span>
+
+                <span>
+                    Agregar a contactos
+                </span>
+
+            </button>
+
+
+
+            <!-- MENSAJE -->
+
+            <p
+                class="contact-status"
+                id="contactStatus"
+                aria-live="polite"
+            >
+            </p>
+
+
+        </section>
+
+
+
+        <!-- ================================= -->
+        <!-- PIE -->
+        <!-- ================================= -->
+
+        <footer class="profile-footer">
+
+            <span>
+                ⚙
+            </span>
+
+            Portal personal · Luis Luna
+
+        </footer>
+
+
+    </main>
+
+
+
+    <script src="datos.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <title>Documentos de Luis Luna</title>
+
+</head>
+
+
+<body>
+
+    <!-- CAPA OSCURA SOBRE EL BACKGROUND -->
+
+    <div class="background-overlay"></div>
+
+
+    <!-- ====================================== -->
+    <!-- CONTENIDO -->
+    <!-- ====================================== -->
+
+    <main class="wrapper">
+
+
+        <!-- ================================== -->
+        <!-- ENCABEZADO -->
+        <!-- ================================== -->
+
+        <header class="page-header">
+
+            <div class="page-header__icon">
+                ⚙️
+            </div>
+
+            <div class="page-header__content">
+
+                <h1 class="page-header__title">
+                    Documentos de Luis Luna
+                </h1>
+
+                <p class="page-header__subtitle">
+                    Documentación profesional y certificaciones
+                </p>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- ================================== -->
+        <!-- CARRUSEL -->
+        <!-- ================================== -->
+
+        <section class="carousel-area">
+
+            <div
+                class="carousel"
+                id="carousel"
+            >
+                <!-- data.js + app.js crean las tarjetas -->
+            </div>
+
+        </section>
+
+
+
+        <!-- ================================== -->
+        <!-- PREVIEW -->
+        <!-- ================================== -->
+
+        <section
+            class="preview"
+            id="preview"
+        >
+
+            <div class="preview__header">
+
+                <span
+                    class="preview__icon"
+                    id="previewIcon"
+                >
+                    📄
+                </span>
+
+                <span
+                    class="preview__title"
+                    id="previewTitle"
+                >
+                    Documento
+                </span>
+
+            </div>
+
+
+            <div
+                class="preview__content"
+                id="previewContent"
+            >
+            </div>
+
+        </section>
+
+
+
+        <!-- ================================== -->
+        <!-- SELECCIONADOS -->
+        <!-- ================================== -->
+
+        <div class="selection-info">
+
+            <span class="selection-info__icon">
+                ☑
+            </span>
+
+            <span id="selectedCount">
+                0 documentos seleccionados
+            </span>
+
+        </div>
+
+
+
+        <!-- ================================== -->
+        <!-- BOTÓN ENVIAR -->
+        <!-- ================================== -->
+
+        <button
+            id="sendButton"
+            class="send-button"
+            type="button"
+            disabled
+        >
+
+            <span class="send-button__icon">
+                ➤
+            </span>
+
+            <span>
+                Enviar documentos
+            </span>
+
+        </button>
+
+
+    </main>
+
+
+
+    <!-- ====================================== -->
+    <!-- MODAL -->
+    <!-- ====================================== -->
+
+    <div
+        class="modal"
+        id="sendModal"
+        aria-hidden="true"
+    >
+
+        <div class="modal__backdrop"></div>
+
+
+        <div
+            class="modal__box"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modalTitle"
+        >
+
+
+            <!-- CERRAR -->
+
+            <button
+                class="modal__close"
+                id="closeModal"
+                type="button"
+                aria-label="Cerrar"
+            >
+                ×
+            </button>
+
+
+            <!-- ICONO -->
+
+            <div class="modal__badge">
+                ↗
+            </div>
+
+
+            <!-- TÍTULO -->
+
+            <h2 id="modalTitle">
+                Compartir documentos
+            </h2>
+
+
+            <p class="modal__description">
+                Revisa los documentos seleccionados
+                y desliza el control para compartirlos.
+            </p>
+
+
+
+            <!-- LISTA SELECCIONADA -->
+
+            <div
+                class="modal__selected"
+                id="modalSelected"
+            >
+            </div>
+
+
+
+            <!-- ESTADO -->
+
+            <p
+                class="share-status"
+                id="shareStatus"
+            >
+            </p>
+
+
+
+            <!-- ================================== -->
+            <!-- SLIDER -->
+            <!-- ================================== -->
+
+            <div
+                class="share-slider"
+                id="shareSlider"
+            >
+
+                <div
+                    class="share-slider__track"
+                    id="shareTrack"
+                >
+
+                    <span
+                        class="share-slider__progress"
+                        id="shareProgress"
+                    ></span>
+
+
+                    <span class="share-slider__text">
+                        Desliza para compartir
+                    </span>
+
+
+                    <button
+                        class="share-slider__handle"
+                        id="shareHandle"
+                        type="button"
+                        aria-label="Deslizar para compartir"
+                    >
+                        ↗
+                    </button>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ====================================== -->
+    <!-- JAVASCRIPT -->
+    <!-- ====================================== -->
+
+    <!-- data.js SIEMPRE primero -->
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+
+
+</body>
+
+</html>

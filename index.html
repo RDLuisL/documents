@@ -10,8 +10,6 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <!-- GOOGLE FONT -->
-
     <link
         rel="preconnect"
         href="https://fonts.googleapis.com"
@@ -28,18 +26,12 @@
         rel="stylesheet"
     >
 
-
-    <!-- CSS -->
-
     <link
         rel="stylesheet"
-        href="style.css"
+        href="menu.css"
     >
 
-
-    <title>
-        Documentos de Luis Luna
-    </title>
+    <title>Luis Luna</title>
 
 </head>
 
@@ -47,324 +39,129 @@
 <body>
 
 
-    <!-- ===================================== -->
-    <!-- CAPA SOBRE EL BACKGROUND -->
-    <!-- ===================================== -->
+    <!-- Fondo oscuro sobre background.jpg -->
 
     <div class="background-overlay"></div>
 
 
 
-    <!-- ===================================== -->
-    <!-- CONTENIDO PRINCIPAL -->
-    <!-- ===================================== -->
-
-    <main class="wrapper">
+    <main class="menu">
 
 
         <!-- ================================= -->
         <!-- ENCABEZADO -->
         <!-- ================================= -->
 
-        <header class="page-header">
+        <header class="menu__header">
 
-
-            <div class="page-header__icon">
+            <div class="menu__logo">
                 ⚙️
             </div>
 
+            <h1>
+                Luis Antonio Luna
+            </h1>
 
-            <div class="page-header__content">
-
-
-                <h1 class="page-header__title">
-
-                    Documentos de Luis Luna
-
-                </h1>
-
-
-                <p class="page-header__subtitle">
-
-                    Documentación profesional y certificaciones
-
-                </p>
-
-
-            </div>
-
+            <p>
+                Selecciona una opción para continuar
+            </p>
 
         </header>
 
 
 
         <!-- ================================= -->
-        <!-- CARRUSEL -->
+        <!-- OPCIONES -->
         <!-- ================================= -->
 
-        <section class="carousel-area">
+        <nav class="menu__options">
 
 
-            <div
-                class="carousel"
-                id="carousel"
+            <!-- DATOS PERSONALES -->
+
+            <a
+                href="./datos.html"
+                class="menu-button"
             >
 
-                <!--
-                    Las tarjetas se generan
-                    automáticamente desde data.js
-                -->
-
-            </div>
+                <span class="menu-button__icon">
+                    👤
+                </span>
 
 
-        </section>
+                <span class="menu-button__content">
+
+                    <strong>
+                        Datos personales
+                    </strong>
+
+                    <small>
+                        Información de contacto
+                    </small>
+
+                </span>
+
+
+                <span class="menu-button__arrow">
+                    ›
+                </span>
+
+            </a>
 
 
 
-        <!-- ================================= -->
-        <!-- PREVIEW -->
-        <!-- ================================= -->
+            <!-- DOCUMENTOS -->
 
-        <section
-            class="preview"
-            id="preview"
-        >
+            <a
+                href="./documentos.html"
+                class="menu-button"
+            >
 
-
-            <!-- CABECERA PREVIEW -->
-
-            <div class="preview__header">
-
-
-                <span
-                    class="preview__icon"
-                    id="previewIcon"
-                >
+                <span class="menu-button__icon">
                     📄
                 </span>
 
 
-                <span
-                    class="preview__title"
-                    id="previewTitle"
-                >
-                    Documento
+                <span class="menu-button__content">
+
+                    <strong>
+                        Documentos
+                    </strong>
+
+                    <small>
+                        Currículum y certificaciones
+                    </small>
+
                 </span>
 
 
-            </div>
+                <span class="menu-button__arrow">
+                    ›
+                </span>
+
+            </a>
 
 
-
-            <!-- CONTENIDO PREVIEW -->
-
-            <div
-                class="preview__content"
-                id="previewContent"
-            >
-            </div>
-
-
-        </section>
+        </nav>
 
 
 
         <!-- ================================= -->
-        <!-- CONTADOR DE SELECCIONADOS -->
+        <!-- PIE -->
         <!-- ================================= -->
 
-        <div class="selection-info">
-
-
-            <span class="selection-info__icon">
-                ☑
-            </span>
-
-
-            <span id="selectedCount">
-
-                0 documentos seleccionados
-
-            </span>
-
-
-        </div>
-
-
-
-        <!-- ================================= -->
-        <!-- BOTÓN ENVIAR -->
-        <!-- ================================= -->
-
-        <button
-            id="sendButton"
-            class="send-button"
-            type="button"
-            disabled
-        >
-
-
-            <span class="send-button__icon">
-
-                ➤
-
-            </span>
-
+        <footer class="menu__footer">
 
             <span>
-
-                Enviar documentos
-
+                ⚙
             </span>
 
+            Portal personal
 
-        </button>
+        </footer>
 
 
     </main>
-
-
-
-    <!-- ===================================== -->
-    <!-- MODAL COMPARTIR -->
-    <!-- ===================================== -->
-
-    <div
-        class="modal"
-        id="sendModal"
-        aria-hidden="true"
-    >
-
-
-        <!-- FONDO OSCURO DEL MODAL -->
-
-        <div class="modal__backdrop"></div>
-
-
-
-        <!-- CAJA MODAL -->
-
-        <div class="modal__box">
-
-
-            <!-- CERRAR -->
-
-            <button
-                class="modal__close"
-                id="closeModal"
-                type="button"
-                aria-label="Cerrar"
-            >
-
-                ×
-
-            </button>
-
-
-
-            <!-- ICONO -->
-
-            <div class="modal__badge">
-
-                ⚙️
-
-            </div>
-
-
-
-            <!-- TÍTULO -->
-
-            <h2>
-
-                Compartir documentos
-
-            </h2>
-
-
-
-            <p class="modal__description">
-
-                Revisa los documentos seleccionados
-                y desliza el control para compartirlos.
-
-            </p>
-
-
-
-            <!-- ================================= -->
-            <!-- LISTA DE DOCUMENTOS -->
-            <!-- ================================= -->
-
-            <div
-                class="modal__selected"
-                id="modalSelected"
-            >
-            </div>
-
-
-
-            <!-- ================================= -->
-            <!-- SLIDER COMPARTIR -->
-            <!-- ================================= -->
-
-            <div
-                class="share-slider"
-                id="shareSlider"
-            >
-
-
-                <div
-                    class="share-slider__track"
-                    id="shareTrack"
-                >
-
-
-                    <span class="share-slider__text">
-
-                        Desliza para compartir
-
-                    </span>
-
-
-
-                    <button
-                        class="share-slider__handle"
-                        id="shareHandle"
-                        type="button"
-                        aria-label="Deslizar para compartir"
-                    >
-
-                        ↗
-
-                    </button>
-
-
-                </div>
-
-
-            </div>
-
-
-        </div>
-
-
-    </div>
-
-
-
-    <!-- ===================================== -->
-    <!-- JAVASCRIPT -->
-    <!-- ===================================== -->
-
-    <!-- IMPORTANTE:
-         data.js siempre debe cargarse
-         ANTES de app.js
-    -->
-
-    <script src="data.js"></script>
-
-    <script src="app.js"></script>
 
 
 </body>

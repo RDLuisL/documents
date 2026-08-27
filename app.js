@@ -1,3 +1,7 @@
+// ==========================================
+// ELEMENTOS HTML
+// ==========================================
+
 const carousel =
     document.getElementById("carousel");
 
@@ -10,11 +14,11 @@ const previewTitle =
 const previewContent =
     document.getElementById("previewContent");
 
-const sendButton =
-    document.getElementById("sendButton");
-
 const selectedCount =
     document.getElementById("selectedCount");
+
+const sendButton =
+    document.getElementById("sendButton");
 
 const sendModal =
     document.getElementById("sendModal");
@@ -25,18 +29,68 @@ const closeModal =
 const modalSelected =
     document.getElementById("modalSelected");
 
+const modalBackdrop =
+    document.querySelector(".modal__backdrop");
+
+const shareSlider =
+    document.getElementById("shareSlider");
+
+const shareTrack =
+    document.getElementById("shareTrack");
+
+const shareHandle =
+    document.getElementById("shareHandle");
+
+const shareProgress =
+    document.getElementById("shareProgress");
+
+const shareStatus =
+    document.getElementById("shareStatus");
 
 
 // ==========================================
-// DOCUMENTOS SELECCIONADOS
+// VALIDACIONES
 // ==========================================
 
-const seleccionados = new Set();
+if (!Array.isArray(window.documentos)) {
+
+    throw new Error(
+        "data.js no cargó correctamente. window.documentos no existe."
+    );
+}
 
 
-// Este será el arreglo solicitado
-let documentosSeleccionados = [];
+if (!carousel) {
 
+    throw new Error(
+        'No existe id="carousel" en index.html'
+    );
+}
+
+
+// ==========================================
+// SELECCIÓN
+// ==========================================
+
+const seleccionados =
+    new Set();
+
+let documentosSeleccionados =
+    [];
+
+
+// ==========================================
+// ARCHIVOS PREPARADOS PARA COMPARTIR
+// ==========================================
+
+let archivosPreparados =
+    [];
+
+let archivosListos =
+    true;
+
+let preparacionVersion =
+    0;
 
 
 // ==========================================
@@ -55,14 +109,15 @@ window.documentos.forEach(
         );
 
 
-        item.dataset.index = index;
+        item.dataset.index =
+            index;
 
 
         item.innerHTML = `
 
             <div class="carousel__item-head">
 
-                ${documento.icono}
+                ${documento.icono || "📄"}
 
             </div>
 
@@ -77,8 +132,8 @@ window.documentos.forEach(
 
 
                 <input
-                    type="checkbox"
                     class="document-check"
+                    type="checkbox"
                     aria-label="Seleccionar ${documento.descripcion}"
                 >
 
@@ -93,13 +148,13 @@ window.documentos.forEach(
             );
 
 
+        // Evita abrir la tarjeta al pulsar checkbox
 
-        // Evitar que el checkbox abra el documento
         checkbox.addEventListener(
             "pointerdown",
-            (e) => {
+            (event) => {
 
-                e.stopPropagation();
+                event.stopPropagation();
 
             }
         );
@@ -107,13 +162,12 @@ window.documentos.forEach(
 
         checkbox.addEventListener(
             "click",
-            (e) => {
+            (event) => {
 
-                e.stopPropagation();
+                event.stopPropagation();
 
             }
         );
-
 
 
         checkbox.addEventListener(
@@ -130,48 +184,71 @@ window.documentos.forEach(
         );
 
 
-        carousel.appendChild(item);
+        carousel.appendChild(
+            item
+        );
 
     }
 );
 
 
+// ==========================================
+// DATOS CARRUSEL
+// ==========================================
+
+const items =
+    Array.from(
+        document.querySelectorAll(
+            ".carousel__item"
+        )
+    );
+
+
+const cantidad =
+    items.length;
+
+
+let indiceActual =
+    0;
+
+let inicioY =
+    0;
+
+let movimientoY =
+    0;
+
+let arrastrando =
+    false;
+
+let tarjetaPulsada =
+    null;
+
+
+const distanciaTarjetas =
+    115;
+
+const limiteArrastre =
+    40;
+
+const limiteClick =
+    10;
+
 
 // ==========================================
-// VARIABLES CARRUSEL
+// FUNCIÓN MÓDULO
 // ==========================================
 
-const items = Array.from(
-    document.querySelectorAll(
-        ".carousel__item"
-    )
-);
+function modulo(numero, total) {
 
-
-const cantidad = items.length;
-
-
-let indiceActual = 0;
-
-let inicioY = 0;
-
-let movimientoY = 0;
-
-let arrastrando = false;
-
-let tarjetaPulsada = null;
-
-
-const distanciaTarjetas = 115;
-
-const limiteArrastre = 40;
-
-const limiteClick = 10;
-
+    return (
+        (numero % total) +
+        total
+    ) % total;
+}
 
 
 // ==========================================
-// SELECCIONAR DOCUMENTOS
+// CAMBIAR SELECCIÓN
 // ==========================================
 
 function cambiarSeleccion(
@@ -201,18 +278,15 @@ function cambiarSeleccion(
         item.classList.remove(
             "is-selected"
         );
-
     }
 
 
     actualizarSeleccionados();
-
 }
 
 
-
 // ==========================================
-// ACTUALIZAR ARREGLO
+// ACTUALIZAR SELECCIONADOS
 // ==========================================
 
 function actualizarSeleccionados() {
@@ -224,6 +298,10 @@ function actualizarSeleccionados() {
                     documento.id
                 )
         );
+
+
+    window.documentosSeleccionados =
+        documentosSeleccionados;
 
 
     const total =
@@ -240,25 +318,182 @@ function actualizarSeleccionados() {
         total === 0;
 
 
-    // Disponible globalmente
-    window.documentosSeleccionados =
-        documentosSeleccionados;
+    // Preparar PDFs anticipadamente
 
-
-    console.log(
-        "Documentos seleccionados:",
-        documentosSeleccionados
-    );
-
+    prepararArchivosEnSegundoPlano();
 }
 
+
+// ==========================================
+// PREPARAR ARCHIVOS
+// ==========================================
+
+async function prepararArchivosEnSegundoPlano() {
+
+    const version =
+        ++preparacionVersion;
+
+
+    archivosPreparados =
+        [];
+
+
+    const documentosArchivo =
+        documentosSeleccionados.filter(
+            documento =>
+                documento.tipo === "archivo"
+        );
+
+
+    // Si no hay PDFs, ya está listo
+
+    if (documentosArchivo.length === 0) {
+
+        archivosListos =
+            true;
+
+        actualizarEstadoCompartir();
+
+        return;
+    }
+
+
+    archivosListos =
+        false;
+
+    actualizarEstadoCompartir();
+
+
+    const nuevosArchivos =
+        [];
+
+
+    for (
+        const documento
+        of documentosArchivo
+    ) {
+
+        try {
+
+            const respuesta =
+                await fetch(
+                    documento.enlace
+                );
+
+
+            if (!respuesta.ok) {
+
+                console.warn(
+                    "No se pudo cargar:",
+                    documento.enlace
+                );
+
+                continue;
+            }
+
+
+            const blob =
+                await respuesta.blob();
+
+
+            const nombre =
+                documento.enlace
+                    .split("/")
+                    .pop();
+
+
+            nuevosArchivos.push(
+
+                new File(
+                    [blob],
+                    nombre,
+                    {
+                        type:
+                            blob.type ||
+                            "application/pdf"
+                    }
+                )
+
+            );
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Error preparando archivo:",
+                documento.enlace,
+                error
+            );
+        }
+    }
+
+
+    // Evitar resultados de una selección anterior
+
+    if (
+        version !==
+        preparacionVersion
+    ) {
+
+        return;
+    }
+
+
+    archivosPreparados =
+        nuevosArchivos;
+
+
+    archivosListos =
+        true;
+
+
+    actualizarEstadoCompartir();
+}
+
+
+// ==========================================
+// ESTADO COMPARTIR
+// ==========================================
+
+function actualizarEstadoCompartir() {
+
+    if (!shareStatus) {
+        return;
+    }
+
+
+    if (
+        documentosSeleccionados.length === 0
+    ) {
+
+        shareStatus.textContent =
+            "";
+
+        return;
+    }
+
+
+    if (!archivosListos) {
+
+        shareStatus.textContent =
+            "Preparando documentos...";
+
+        return;
+    }
+
+
+    shareStatus.textContent =
+        "Listo para compartir";
+}
 
 
 // ==========================================
 // SONIDO
 // ==========================================
 
-let audioContext = null;
+let audioContext =
+    null;
 
 
 function reproducirSonido(
@@ -279,17 +514,14 @@ function reproducirSonido(
 
         audioContext =
             new AudioContext();
-
     }
 
 
     if (
-        audioContext.state ===
-        "suspended"
+        audioContext.state === "suspended"
     ) {
 
         audioContext.resume();
-
     }
 
 
@@ -305,7 +537,8 @@ function reproducirSonido(
         audioContext.createGain();
 
 
-    oscilador.type = "sine";
+    oscilador.type =
+        "sine";
 
 
     if (
@@ -314,15 +547,15 @@ function reproducirSonido(
 
         oscilador.frequency
             .setValueAtTime(
-                420,
+                390,
                 ahora
             );
 
 
         oscilador.frequency
             .exponentialRampToValueAtTime(
-                620,
-                ahora + 0.08
+                540,
+                ahora + 0.07
             );
 
     }
@@ -331,17 +564,16 @@ function reproducirSonido(
 
         oscilador.frequency
             .setValueAtTime(
-                420,
+                390,
                 ahora
             );
 
 
         oscilador.frequency
             .exponentialRampToValueAtTime(
-                300,
-                ahora + 0.08
+                280,
+                ahora + 0.07
             );
-
     }
 
 
@@ -354,7 +586,7 @@ function reproducirSonido(
 
     volumen.gain
         .exponentialRampToValueAtTime(
-            0.045,
+            0.04,
             ahora + 0.01
         );
 
@@ -362,7 +594,7 @@ function reproducirSonido(
     volumen.gain
         .exponentialRampToValueAtTime(
             0.0001,
-            ahora + 0.12
+            ahora + 0.11
         );
 
 
@@ -382,25 +614,9 @@ function reproducirSonido(
 
 
     oscilador.stop(
-        ahora + 0.13
+        ahora + 0.12
     );
-
 }
-
-
-
-// ==========================================
-// MÓDULO
-// ==========================================
-
-function modulo(numero, total) {
-
-    return (
-        (numero % total) + total
-    ) % total;
-
-}
-
 
 
 // ==========================================
@@ -421,19 +637,19 @@ function actualizarPreview() {
 
 
     previewIcon.textContent =
-        documento.icono;
+        documento.icono || "📄";
 
 
     previewTitle.textContent =
         documento.descripcion;
 
 
-    previewContent.innerHTML = "";
-
+    previewContent.innerHTML =
+        "";
 
 
     // ======================================
-    // ARCHIVO PDF
+    // PDF
     // ======================================
 
     if (
@@ -486,7 +702,6 @@ function actualizarPreview() {
 
         return;
     }
-
 
 
     // ======================================
@@ -549,9 +764,7 @@ function actualizarPreview() {
     previewContent.appendChild(
         panel
     );
-
 }
-
 
 
 // ==========================================
@@ -576,7 +789,6 @@ function abrirDocumento(item) {
     ) {
 
         return;
-
     }
 
 
@@ -584,9 +796,7 @@ function abrirDocumento(item) {
         documento.enlace,
         "_blank"
     );
-
 }
-
 
 
 // ==========================================
@@ -594,6 +804,11 @@ function abrirDocumento(item) {
 // ==========================================
 
 function actualizarCarrusel() {
+
+    if (cantidad === 0) {
+        return;
+    }
+
 
     items.forEach(
         item => {
@@ -616,10 +831,8 @@ function actualizarCarrusel() {
 
             item.style.transform =
                 "translateY(0px) scale(0.5)";
-
         }
     );
-
 
 
     // CENTRAL
@@ -641,7 +854,6 @@ function actualizarCarrusel() {
         "translateY(0px) scale(1)";
 
 
-
     // ANTERIOR
 
     const anterior =
@@ -657,14 +869,13 @@ function actualizarCarrusel() {
         "visible";
 
     anterior.style.opacity =
-        "0.4";
+        "0.44";
 
     anterior.style.zIndex =
         "1";
 
     anterior.style.transform =
-        `translateY(-${distanciaTarjetas}px) scale(0.7)`;
-
+        `translateY(-${distanciaTarjetas}px) scale(0.72)`;
 
 
     // SIGUIENTE
@@ -682,19 +893,17 @@ function actualizarCarrusel() {
         "visible";
 
     siguiente.style.opacity =
-        "0.4";
+        "0.44";
 
     siguiente.style.zIndex =
         "1";
 
     siguiente.style.transform =
-        `translateY(${distanciaTarjetas}px) scale(0.7)`;
+        `translateY(${distanciaTarjetas}px) scale(0.72)`;
 
 
     actualizarPreview();
-
 }
-
 
 
 // ==========================================
@@ -716,9 +925,7 @@ function siguienteTarjeta() {
 
 
     actualizarCarrusel();
-
 }
-
 
 
 // ==========================================
@@ -740,32 +947,29 @@ function anteriorTarjeta() {
 
 
     actualizarCarrusel();
-
 }
 
 
-
 // ==========================================
-// POINTER DOWN
+// POINTER DOWN CARRUSEL
 // ==========================================
 
 carousel.addEventListener(
     "pointerdown",
-    e => {
+    (event) => {
 
         if (
-            e.target.closest(
+            event.target.closest(
                 ".document-check"
             )
         ) {
 
             return;
-
         }
 
 
         const item =
-            e.target.closest(
+            event.target.closest(
                 ".carousel__item"
             );
 
@@ -784,7 +988,7 @@ carousel.addEventListener(
 
 
         inicioY =
-            e.clientY;
+            event.clientY;
 
 
         movimientoY =
@@ -792,25 +996,23 @@ carousel.addEventListener(
 
 
         carousel.setPointerCapture(
-            e.pointerId
+            event.pointerId
         );
 
 
         carousel.style.cursor =
             "grabbing";
-
     }
 );
 
 
-
 // ==========================================
-// POINTER MOVE
+// POINTER MOVE CARRUSEL
 // ==========================================
 
 carousel.addEventListener(
     "pointermove",
-    e => {
+    (event) => {
 
         if (!arrastrando) {
             return;
@@ -818,7 +1020,7 @@ carousel.addEventListener(
 
 
         movimientoY =
-            e.clientY -
+            event.clientY -
             inicioY;
 
 
@@ -834,10 +1036,7 @@ carousel.addEventListener(
             `translateY(${movimientoY}px) scale(1)`;
 
 
-
-        if (
-            movimientoY < 0
-        ) {
+        if (movimientoY < 0) {
 
             const siguiente =
                 items[
@@ -853,15 +1052,11 @@ carousel.addEventListener(
 
 
             siguiente.style.transform =
-                `translateY(${distanciaTarjetas + movimientoY}px) scale(0.7)`;
-
+                `translateY(${distanciaTarjetas + movimientoY}px) scale(0.72)`;
         }
 
 
-
-        if (
-            movimientoY > 0
-        ) {
+        if (movimientoY > 0) {
 
             const anterior =
                 items[
@@ -877,17 +1072,14 @@ carousel.addEventListener(
 
 
             anterior.style.transform =
-                `translateY(${-distanciaTarjetas + movimientoY}px) scale(0.7)`;
-
+                `translateY(${-distanciaTarjetas + movimientoY}px) scale(0.72)`;
         }
-
     }
 );
 
 
-
 // ==========================================
-// POINTER UP
+// POINTER UP CARRUSEL
 // ==========================================
 
 carousel.addEventListener(
@@ -899,12 +1091,12 @@ carousel.addEventListener(
         }
 
 
-        arrastrando = false;
+        arrastrando =
+            false;
 
 
         carousel.style.cursor =
             "grab";
-
 
 
         // CLICK
@@ -915,14 +1107,11 @@ carousel.addEventListener(
             ) <= limiteClick
         ) {
 
-            if (
-                tarjetaPulsada
-            ) {
+            if (tarjetaPulsada) {
 
                 abrirDocumento(
                     tarjetaPulsada
                 );
-
             }
 
 
@@ -932,11 +1121,8 @@ carousel.addEventListener(
 
             actualizarCarrusel();
 
-
             return;
-
         }
-
 
 
         if (
@@ -948,7 +1134,6 @@ carousel.addEventListener(
 
         }
 
-
         else if (
             movimientoY >
             limiteArrastre
@@ -958,51 +1143,64 @@ carousel.addEventListener(
 
         }
 
-
         else {
 
             actualizarCarrusel();
-
         }
 
 
         tarjetaPulsada =
             null;
-
     }
 );
 
+
+// ==========================================
+// CANCELAR CARRUSEL
+// ==========================================
+
+carousel.addEventListener(
+    "pointercancel",
+    () => {
+
+        arrastrando =
+            false;
+
+
+        tarjetaPulsada =
+            null;
+
+
+        actualizarCarrusel();
+    }
+);
 
 
 // ==========================================
 // RUEDA
 // ==========================================
 
-let bloqueadoWheel = false;
+let wheelBloqueado =
+    false;
 
 
 carousel.addEventListener(
     "wheel",
-    e => {
+    (event) => {
 
-        e.preventDefault();
+        event.preventDefault();
 
 
-        if (
-            bloqueadoWheel
-        ) {
-
+        if (wheelBloqueado) {
             return;
-
         }
 
 
-        bloqueadoWheel = true;
+        wheelBloqueado =
+            true;
 
 
-        if (
-            e.deltaY > 0
-        ) {
+        if (event.deltaY > 0) {
 
             siguienteTarjeta();
 
@@ -1011,103 +1209,69 @@ carousel.addEventListener(
         else {
 
             anteriorTarjeta();
-
         }
 
 
         setTimeout(
             () => {
 
-                bloqueadoWheel =
+                wheelBloqueado =
                     false;
 
             },
-            450
+            420
         );
-
     },
-
     {
         passive: false
     }
 );
 
 
-
 // ==========================================
-// TECLADO
+// TECLADO CARRUSEL
 // ==========================================
 
 document.addEventListener(
     "keydown",
-    e => {
+    (event) => {
 
         if (
-            e.key ===
-            "ArrowDown"
-        ) {
-
-            siguienteTarjeta();
-
-        }
-
-
-        if (
-            e.key ===
-            "ArrowUp"
-        ) {
-
-            anteriorTarjeta();
-
-        }
-
-    }
-);
-
-
-
-// ==========================================
-// ABRIR MODAL
-// ==========================================
-
-sendButton.addEventListener(
-    "click",
-    () => {
-
-        if (
-            documentosSeleccionados.length === 0
+            sendModal.classList.contains(
+                "is-open"
+            )
         ) {
 
             return;
-
         }
 
 
-        actualizarModal();
+        if (
+            event.key === "ArrowDown"
+        ) {
+
+            siguienteTarjeta();
+        }
 
 
-        sendModal.classList.add(
-            "is-open"
-        );
+        if (
+            event.key === "ArrowUp"
+        ) {
 
-
-        sendModal.setAttribute(
-            "aria-hidden",
-            "false"
-        );
-
+            anteriorTarjeta();
+        }
     }
 );
 
 
-
 // ==========================================
-// ACTUALIZAR MODAL
+// MODAL
 // ==========================================
 
 function actualizarModal() {
 
-    modalSelected.innerHTML = "";
+    modalSelected.innerHTML =
+        "";
 
 
     documentosSeleccionados.forEach(
@@ -1125,18 +1289,53 @@ function actualizarModal() {
 
 
             item.textContent =
-                `${documento.icono} ${documento.descripcion}`;
+                `${documento.icono || "📄"} ${documento.descripcion}`;
 
 
             modalSelected.appendChild(
                 item
             );
-
         }
     );
-
 }
 
+
+// ==========================================
+// ABRIR MODAL
+// ==========================================
+
+sendButton.addEventListener(
+    "click",
+    () => {
+
+        if (
+            documentosSeleccionados.length === 0
+        ) {
+
+            return;
+        }
+
+
+        actualizarModal();
+
+
+        reiniciarShareSlider();
+
+
+        actualizarEstadoCompartir();
+
+
+        sendModal.classList.add(
+            "is-open"
+        );
+
+
+        sendModal.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+    }
+);
 
 
 // ==========================================
@@ -1155,6 +1354,8 @@ function cerrarModal() {
         "true"
     );
 
+
+    reiniciarShareSlider();
 }
 
 
@@ -1164,111 +1365,20 @@ closeModal.addEventListener(
 );
 
 
-document
-    .querySelector(
-        ".modal__backdrop"
-    )
-    .addEventListener(
-        "click",
-        cerrarModal
-    );
-
+modalBackdrop.addEventListener(
+    "click",
+    cerrarModal
+);
 
 
 // ==========================================
-// PREPARAR ARCHIVOS
-// ==========================================
-
-async function prepararArchivos() {
-
-    const archivos = [];
-
-
-    const documentosArchivo =
-        documentosSeleccionados.filter(
-            documento =>
-                documento.tipo ===
-                "archivo"
-        );
-
-
-    for (
-        const documento
-        of documentosArchivo
-    ) {
-
-        try {
-
-            const respuesta =
-                await fetch(
-                    documento.enlace
-                );
-
-
-            if (
-                !respuesta.ok
-            ) {
-
-                continue;
-
-            }
-
-
-            const blob =
-                await respuesta.blob();
-
-
-            const nombre =
-                documento.enlace
-                    .split("/")
-                    .pop();
-
-
-            const archivo =
-                new File(
-                    [blob],
-                    nombre,
-                    {
-                        type:
-                            blob.type ||
-                            "application/pdf"
-                    }
-                );
-
-
-            archivos.push(
-                archivo
-            );
-
-        }
-
-        catch (error) {
-
-            console.error(
-                "No se pudo preparar:",
-                documento.descripcion,
-                error
-            );
-
-        }
-
-    }
-
-
-    return archivos;
-
-}
-
-
-
-// ==========================================
-// CREAR TEXTO
+// TEXTO PARA COMPARTIR
 // ==========================================
 
 function crearTextoCompartir() {
 
     let texto =
-        "Documentos seleccionados:\n\n";
+        "Documentos de Luis Luna\n\n";
 
 
     documentosSeleccionados.forEach(
@@ -1285,169 +1395,505 @@ function crearTextoCompartir() {
 
                 texto +=
                     `${documento.enlace}\n`;
-
             }
 
 
             texto += "\n";
-
         }
     );
 
 
     return texto;
-
 }
 
 
-
 // ==========================================
-// COMPARTIR ARCHIVOS
+// COMPARTIR
 // ==========================================
 
-async function compartirArchivos(
-    modo
-) {
+function compartirArchivos() {
 
-    const archivos =
-        await prepararArchivos();
+    if (!navigator.share) {
 
+        alert(
+            "Este navegador no permite compartir directamente. Prueba desde Chrome, Safari o un teléfono compatible."
+        );
 
-    const texto =
-        crearTextoCompartir();
-
-
-    const datosCompartir = {
-
-        title:
-            "Documentos",
-
-        text:
-            texto
-
-    };
-
-
-
-    // Agregar archivos si el navegador
-    // permite compartirlos
-
-    if (
-        archivos.length > 0 &&
-        navigator.canShare &&
-        navigator.canShare(
-            {
-                files:
-                    archivos
-            }
-        )
-    ) {
-
-        datosCompartir.files =
-            archivos;
-
+        return false;
     }
 
 
+    const datos =
+        {
+            title:
+                "Documentos de Luis Luna",
 
-    // ======================================
-    // WEB SHARE API
-    // ======================================
+            text:
+                crearTextoCompartir()
+        };
+
+
+    // Adjuntar archivos si es compatible
 
     if (
-        navigator.share
+        archivosPreparados.length > 0 &&
+        navigator.canShare
     ) {
 
         try {
 
-            await navigator.share(
-                datosCompartir
-            );
+            if (
+                navigator.canShare({
+                    files:
+                        archivosPreparados
+                })
+            ) {
 
-
-            cerrarModal();
-
-            return true;
+                datos.files =
+                    archivosPreparados;
+            }
 
         }
 
         catch (error) {
 
-            if (
-                error.name ===
-                "AbortError"
-            ) {
+            console.warn(
+                "No es posible adjuntar los archivos:",
+                error
+            );
+        }
+    }
 
-                return true;
+
+    // IMPORTANTE:
+    // navigator.share se ejecuta directamente
+    // durante pointerup del slider.
+
+    navigator.share(datos)
+        .then(
+            () => {
+
+                cerrarModal();
 
             }
+        )
+        .catch(
+            error => {
+
+                if (
+                    error.name !==
+                    "AbortError"
+                ) {
+
+                    console.error(
+                        "Error compartiendo:",
+                        error
+                    );
+                }
 
 
-            console.error(
-                error
+                reiniciarShareSlider();
+            }
+        );
+
+
+    return true;
+}
+
+
+// ==========================================
+// SLIDER
+// ==========================================
+
+let shareDragging =
+    false;
+
+let shareStartX =
+    0;
+
+let shareStartLeft =
+    6;
+
+let shareBusy =
+    false;
+
+
+// ==========================================
+// RECORRIDO MÁXIMO
+// ==========================================
+
+function getShareMax() {
+
+    return Math.max(
+
+        shareTrack.clientWidth -
+        shareHandle.offsetWidth -
+        12,
+
+        0
+    );
+}
+
+
+// ==========================================
+// ACTUALIZAR PROGRESO
+// ==========================================
+
+function actualizarShareProgress(
+    posicion
+) {
+
+    const maximo =
+        getShareMax();
+
+
+    const porcentaje =
+        maximo > 0
+
+            ? Math.max(
+                0,
+                Math.min(
+                    1,
+                    (posicion - 6) /
+                    maximo
+                )
+            )
+
+            : 0;
+
+
+    shareProgress.style.width =
+        `${porcentaje * 100}%`;
+}
+
+
+// ==========================================
+// REINICIAR SLIDER
+// ==========================================
+
+function reiniciarShareSlider() {
+
+    shareDragging =
+        false;
+
+
+    shareBusy =
+        false;
+
+
+    shareHandle.style.transition =
+        "left 0.25s ease";
+
+
+    shareHandle.style.left =
+        "6px";
+
+
+    shareProgress.style.width =
+        "0%";
+
+
+    shareSlider.classList.remove(
+        "is-complete"
+    );
+
+
+    shareHandle.disabled =
+        !archivosListos;
+}
+
+
+// ==========================================
+// POINTER DOWN SLIDER
+// ==========================================
+
+shareHandle.addEventListener(
+    "pointerdown",
+    (event) => {
+
+        if (
+            shareBusy ||
+            !archivosListos
+        ) {
+
+            return;
+        }
+
+
+        event.preventDefault();
+
+        event.stopPropagation();
+
+
+        shareDragging =
+            true;
+
+
+        shareStartX =
+            event.clientX;
+
+
+        shareStartLeft =
+            parseFloat(
+                shareHandle.style.left
+            ) || 6;
+
+
+        shareHandle.style.transition =
+            "none";
+
+
+        shareHandle.setPointerCapture(
+            event.pointerId
+        );
+    }
+);
+
+
+// ==========================================
+// POINTER MOVE SLIDER
+// ==========================================
+
+shareHandle.addEventListener(
+    "pointermove",
+    (event) => {
+
+        if (!shareDragging) {
+            return;
+        }
+
+
+        event.preventDefault();
+
+        event.stopPropagation();
+
+
+        const movimiento =
+            event.clientX -
+            shareStartX;
+
+
+        const maximo =
+            getShareMax();
+
+
+        let posicion =
+            shareStartLeft +
+            movimiento;
+
+
+        posicion =
+            Math.max(
+                6,
+                Math.min(
+                    posicion,
+                    maximo + 6
+                )
+            );
+
+
+        shareHandle.style.left =
+            `${posicion}px`;
+
+
+        actualizarShareProgress(
+            posicion
+        );
+    }
+);
+
+
+// ==========================================
+// POINTER UP SLIDER
+// ==========================================
+
+shareHandle.addEventListener(
+    "pointerup",
+    (event) => {
+
+        if (!shareDragging) {
+            return;
+        }
+
+
+        event.preventDefault();
+
+        event.stopPropagation();
+
+
+        shareDragging =
+            false;
+
+
+        try {
+
+            shareHandle.releasePointerCapture(
+                event.pointerId
             );
 
         }
 
-    }
+        catch (error) {
+            // No es grave.
+        }
 
 
-    // ======================================
-    // ALTERNATIVA
-    // ======================================
+        const maximo =
+            getShareMax();
 
-    if (
-        modo === "whatsapp"
-    ) {
 
-        const url =
-            "https://wa.me/?text=" +
-            encodeURIComponent(
-                texto
+        const posicion =
+            parseFloat(
+                shareHandle.style.left
+            ) || 6;
+
+
+        const porcentaje =
+            maximo > 0
+
+                ? (posicion - 6) /
+                  maximo
+
+                : 0;
+
+
+        // ==================================
+        // LLEGÓ AL FINAL
+        // ==================================
+
+        if (
+            porcentaje >= 0.82
+        ) {
+
+            shareBusy =
+                true;
+
+
+            shareHandle.style.transition =
+                "left 0.18s ease";
+
+
+            shareHandle.style.left =
+                `${maximo + 6}px`;
+
+
+            shareProgress.style.width =
+                "100%";
+
+
+            shareSlider.classList.add(
+                "is-complete"
             );
 
 
-        window.open(
-            url,
-            "_blank"
-        );
+            // MUY IMPORTANTE:
+            // No usamos setTimeout aquí.
+            // Compartir debe ejecutarse dentro
+            // del gesto directo del usuario.
 
+            compartirArchivos();
+
+        }
+
+        // ==================================
+        // NO LLEGÓ
+        // ==================================
+
+        else {
+
+            reiniciarShareSlider();
+        }
     }
-
-
-    else if (
-        modo === "email"
-    ) {
-
-        const subject =
-            encodeURIComponent(
-                "Documentos"
-            );
-
-
-        const body =
-            encodeURIComponent(
-                texto
-            );
-
-
-        window.location.href =
-            `mailto:?subject=${subject}&body=${body}`;
-
-    }
-
-
-    cerrarModal();
-
-
-    return false;
-
-}
-
+);
 
 
 // ==========================================
-// CONFIGURACIÓN INICIAL
+// CANCELAR SLIDER
+// ==========================================
+
+shareHandle.addEventListener(
+    "pointercancel",
+    () => {
+
+        reiniciarShareSlider();
+    }
+);
+
+
+// ==========================================
+// TECLADO EN SLIDER
+// ==========================================
+
+shareHandle.addEventListener(
+    "keydown",
+    (event) => {
+
+        if (
+            event.key !== "Enter" &&
+            event.key !== " "
+        ) {
+
+            return;
+        }
+
+
+        event.preventDefault();
+
+
+        if (
+            !archivosListos ||
+            shareBusy
+        ) {
+
+            return;
+        }
+
+
+        const maximo =
+            getShareMax();
+
+
+        shareHandle.style.left =
+            `${maximo + 6}px`;
+
+
+        shareProgress.style.width =
+            "100%";
+
+
+        shareSlider.classList.add(
+            "is-complete"
+        );
+
+
+        compartirArchivos();
+    }
+);
+
+
+// ==========================================
+// ESC
+// ==========================================
+
+document.addEventListener(
+    "keydown",
+    (event) => {
+
+        if (
+            event.key === "Escape" &&
+            sendModal.classList.contains(
+                "is-open"
+            )
+        ) {
+
+            cerrarModal();
+        }
+    }
+);
+
+
+// ==========================================
+// INICIALIZACIÓN
 // ==========================================
 
 carousel.style.cursor =
@@ -1466,3 +1912,6 @@ actualizarSeleccionados();
 
 
 actualizarCarrusel();
+
+
+reiniciarShareSlider();

@@ -63,7 +63,7 @@ if (!Array.isArray(window.documentos)) {
 if (!carousel) {
 
     throw new Error(
-        'No existe id="carousel" en index.html'
+        'No existe id="carousel" en documentos.html'
     );
 }
 
@@ -91,6 +91,294 @@ let archivosListos =
 
 let preparacionVersion =
     0;
+
+
+// ==========================================
+// AUDIO CONTEXT
+// ==========================================
+
+let audioContext =
+    null;
+
+
+// ==========================================
+// OBTENER AUDIO CONTEXT
+// ==========================================
+
+function obtenerAudioContext() {
+
+    const AudioContext =
+        window.AudioContext ||
+        window.webkitAudioContext;
+
+
+    if (!AudioContext) {
+
+        return null;
+    }
+
+
+    if (!audioContext) {
+
+        audioContext =
+            new AudioContext();
+    }
+
+
+    if (
+        audioContext.state === "suspended"
+    ) {
+
+        audioContext.resume();
+    }
+
+
+    return audioContext;
+}
+
+
+// ==========================================
+// SONIDO DEL CARRUSEL
+// ==========================================
+
+function reproducirSonido(
+    direccion = "siguiente"
+) {
+
+    const contexto =
+        obtenerAudioContext();
+
+
+    if (!contexto) {
+
+        return;
+    }
+
+
+    const ahora =
+        contexto.currentTime;
+
+
+    const oscilador =
+        contexto.createOscillator();
+
+
+    const volumen =
+        contexto.createGain();
+
+
+    oscilador.type =
+        "sine";
+
+
+    // ======================================
+    // SIGUIENTE
+    // ======================================
+
+    if (
+        direccion === "siguiente"
+    ) {
+
+        oscilador.frequency
+            .setValueAtTime(
+                390,
+                ahora
+            );
+
+
+        oscilador.frequency
+            .exponentialRampToValueAtTime(
+                540,
+                ahora + 0.07
+            );
+
+    }
+
+    // ======================================
+    // ANTERIOR
+    // ======================================
+
+    else {
+
+        oscilador.frequency
+            .setValueAtTime(
+                390,
+                ahora
+            );
+
+
+        oscilador.frequency
+            .exponentialRampToValueAtTime(
+                280,
+                ahora + 0.07
+            );
+    }
+
+
+    volumen.gain
+        .setValueAtTime(
+            0.0001,
+            ahora
+        );
+
+
+    volumen.gain
+        .exponentialRampToValueAtTime(
+            0.035,
+            ahora + 0.01
+        );
+
+
+    volumen.gain
+        .exponentialRampToValueAtTime(
+            0.0001,
+            ahora + 0.11
+        );
+
+
+    oscilador.connect(
+        volumen
+    );
+
+
+    volumen.connect(
+        contexto.destination
+    );
+
+
+    oscilador.start(
+        ahora
+    );
+
+
+    oscilador.stop(
+        ahora + 0.12
+    );
+}
+
+
+// ==========================================
+// SONIDO SELECCIONAR / DESELECCIONAR
+// ==========================================
+
+function reproducirSonidoSeleccion(
+    accion = "seleccionar"
+) {
+
+    const contexto =
+        obtenerAudioContext();
+
+
+    if (!contexto) {
+
+        return;
+    }
+
+
+    const ahora =
+        contexto.currentTime;
+
+
+    const oscilador =
+        contexto.createOscillator();
+
+
+    const volumen =
+        contexto.createGain();
+
+
+    oscilador.type =
+        "sine";
+
+
+    // ======================================
+    // SELECCIONAR
+    // Sonido ascendente
+    // ======================================
+
+    if (
+        accion === "seleccionar"
+    ) {
+
+        oscilador.frequency
+            .setValueAtTime(
+                620,
+                ahora
+            );
+
+
+        oscilador.frequency
+            .exponentialRampToValueAtTime(
+                850,
+                ahora + 0.08
+            );
+
+    }
+
+    // ======================================
+    // DESELECCIONAR
+    // Sonido descendente
+    // ======================================
+
+    else {
+
+        oscilador.frequency
+            .setValueAtTime(
+                520,
+                ahora
+            );
+
+
+        oscilador.frequency
+            .exponentialRampToValueAtTime(
+                340,
+                ahora + 0.08
+            );
+    }
+
+
+    // Volumen suave
+
+    volumen.gain
+        .setValueAtTime(
+            0.0001,
+            ahora
+        );
+
+
+    volumen.gain
+        .exponentialRampToValueAtTime(
+            0.045,
+            ahora + 0.01
+        );
+
+
+    volumen.gain
+        .exponentialRampToValueAtTime(
+            0.0001,
+            ahora + 0.11
+        );
+
+
+    oscilador.connect(
+        volumen
+    );
+
+
+    volumen.connect(
+        contexto.destination
+    );
+
+
+    oscilador.start(
+        ahora
+    );
+
+
+    oscilador.stop(
+        ahora + 0.12
+    );
+}
 
 
 // ==========================================
@@ -148,7 +436,9 @@ window.documentos.forEach(
             );
 
 
-        // Evita abrir la tarjeta al pulsar checkbox
+        // Evitar que tocar el checkbox
+        // active el movimiento o apertura
+        // de la tarjeta.
 
         checkbox.addEventListener(
             "pointerdown",
@@ -169,6 +459,10 @@ window.documentos.forEach(
             }
         );
 
+
+        // ==================================
+        // SELECCIÓN
+        // ==================================
 
         checkbox.addEventListener(
             "change",
@@ -193,7 +487,7 @@ window.documentos.forEach(
 
 
 // ==========================================
-// DATOS CARRUSEL
+// DATOS DEL CARRUSEL
 // ==========================================
 
 const items =
@@ -238,7 +532,10 @@ const limiteClick =
 // FUNCIÓN MÓDULO
 // ==========================================
 
-function modulo(numero, total) {
+function modulo(
+    numero,
+    total
+) {
 
     return (
         (numero % total) +
@@ -257,17 +554,31 @@ function cambiarSeleccion(
     item
 ) {
 
+    // ======================================
+    // SELECCIONAR
+    // ======================================
+
     if (seleccionado) {
 
         seleccionados.add(
             documento.id
         );
 
+
         item.classList.add(
             "is-selected"
         );
 
+
+        reproducirSonidoSeleccion(
+            "seleccionar"
+        );
+
     }
+
+    // ======================================
+    // DESELECCIONAR
+    // ======================================
 
     else {
 
@@ -275,8 +586,14 @@ function cambiarSeleccion(
             documento.id
         );
 
+
         item.classList.remove(
             "is-selected"
+        );
+
+
+        reproducirSonidoSeleccion(
+            "deseleccionar"
         );
     }
 
@@ -319,6 +636,8 @@ function actualizarSeleccionados() {
 
 
     // Preparar PDFs anticipadamente
+    // para que Web Share pueda ejecutarse
+    // directamente desde el gesto.
 
     prepararArchivosEnSegundoPlano();
 }
@@ -345,12 +664,15 @@ async function prepararArchivosEnSegundoPlano() {
         );
 
 
-    // Si no hay PDFs, ya está listo
+    // Si no hay PDFs
 
-    if (documentosArchivo.length === 0) {
+    if (
+        documentosArchivo.length === 0
+    ) {
 
         archivosListos =
             true;
+
 
         actualizarEstadoCompartir();
 
@@ -360,6 +682,7 @@ async function prepararArchivosEnSegundoPlano() {
 
     archivosListos =
         false;
+
 
     actualizarEstadoCompartir();
 
@@ -429,7 +752,8 @@ async function prepararArchivosEnSegundoPlano() {
     }
 
 
-    // Evitar resultados de una selección anterior
+    // Evitar que una preparación antigua
+    // reemplace una selección nueva.
 
     if (
         version !==
@@ -459,6 +783,7 @@ async function prepararArchivosEnSegundoPlano() {
 function actualizarEstadoCompartir() {
 
     if (!shareStatus) {
+
         return;
     }
 
@@ -489,137 +814,6 @@ function actualizarEstadoCompartir() {
 
 
 // ==========================================
-// SONIDO
-// ==========================================
-
-let audioContext =
-    null;
-
-
-function reproducirSonido(
-    direccion = "siguiente"
-) {
-
-    const AudioContext =
-        window.AudioContext ||
-        window.webkitAudioContext;
-
-
-    if (!AudioContext) {
-        return;
-    }
-
-
-    if (!audioContext) {
-
-        audioContext =
-            new AudioContext();
-    }
-
-
-    if (
-        audioContext.state === "suspended"
-    ) {
-
-        audioContext.resume();
-    }
-
-
-    const ahora =
-        audioContext.currentTime;
-
-
-    const oscilador =
-        audioContext.createOscillator();
-
-
-    const volumen =
-        audioContext.createGain();
-
-
-    oscilador.type =
-        "sine";
-
-
-    if (
-        direccion === "siguiente"
-    ) {
-
-        oscilador.frequency
-            .setValueAtTime(
-                390,
-                ahora
-            );
-
-
-        oscilador.frequency
-            .exponentialRampToValueAtTime(
-                540,
-                ahora + 0.07
-            );
-
-    }
-
-    else {
-
-        oscilador.frequency
-            .setValueAtTime(
-                390,
-                ahora
-            );
-
-
-        oscilador.frequency
-            .exponentialRampToValueAtTime(
-                280,
-                ahora + 0.07
-            );
-    }
-
-
-    volumen.gain
-        .setValueAtTime(
-            0.0001,
-            ahora
-        );
-
-
-    volumen.gain
-        .exponentialRampToValueAtTime(
-            0.04,
-            ahora + 0.01
-        );
-
-
-    volumen.gain
-        .exponentialRampToValueAtTime(
-            0.0001,
-            ahora + 0.11
-        );
-
-
-    oscilador.connect(
-        volumen
-    );
-
-
-    volumen.connect(
-        audioContext.destination
-    );
-
-
-    oscilador.start(
-        ahora
-    );
-
-
-    oscilador.stop(
-        ahora + 0.12
-    );
-}
-
-
-// ==========================================
 // PREVIEW
 // ==========================================
 
@@ -632,12 +826,14 @@ function actualizarPreview() {
 
 
     if (!documento) {
+
         return;
     }
 
 
     previewIcon.textContent =
-        documento.icono || "📄";
+        documento.icono ||
+        "📄";
 
 
     previewTitle.textContent =
@@ -649,7 +845,7 @@ function actualizarPreview() {
 
 
     // ======================================
-    // PDF
+    // ARCHIVO PDF
     // ======================================
 
     if (
@@ -771,7 +967,9 @@ function actualizarPreview() {
 // ABRIR DOCUMENTO
 // ==========================================
 
-function abrirDocumento(item) {
+function abrirDocumento(
+    item
+) {
 
     const index =
         Number(
@@ -780,7 +978,9 @@ function abrirDocumento(item) {
 
 
     const documento =
-        window.documentos[index];
+        window.documentos[
+            index
+        ];
 
 
     if (
@@ -805,7 +1005,10 @@ function abrirDocumento(item) {
 
 function actualizarCarrusel() {
 
-    if (cantidad === 0) {
+    if (
+        cantidad === 0
+    ) {
+
         return;
     }
 
@@ -835,26 +1038,35 @@ function actualizarCarrusel() {
     );
 
 
-    // CENTRAL
+    // ======================================
+    // TARJETA CENTRAL
+    // ======================================
 
     const actual =
-        items[indiceActual];
+        items[
+            indiceActual
+        ];
 
 
     actual.style.visibility =
         "visible";
 
+
     actual.style.opacity =
         "1";
 
+
     actual.style.zIndex =
         "3";
+
 
     actual.style.transform =
         "translateY(0px) scale(1)";
 
 
-    // ANTERIOR
+    // ======================================
+    // TARJETA ANTERIOR
+    // ======================================
 
     const anterior =
         items[
@@ -868,17 +1080,22 @@ function actualizarCarrusel() {
     anterior.style.visibility =
         "visible";
 
+
     anterior.style.opacity =
         "0.44";
 
+
     anterior.style.zIndex =
         "1";
+
 
     anterior.style.transform =
         `translateY(-${distanciaTarjetas}px) scale(0.72)`;
 
 
-    // SIGUIENTE
+    // ======================================
+    // TARJETA SIGUIENTE
+    // ======================================
 
     const siguiente =
         items[
@@ -892,11 +1109,14 @@ function actualizarCarrusel() {
     siguiente.style.visibility =
         "visible";
 
+
     siguiente.style.opacity =
         "0.44";
 
+
     siguiente.style.zIndex =
         "1";
+
 
     siguiente.style.transform =
         `translateY(${distanciaTarjetas}px) scale(0.72)`;
@@ -975,6 +1195,7 @@ carousel.addEventListener(
 
 
         if (!item) {
+
             return;
         }
 
@@ -1015,6 +1236,7 @@ carousel.addEventListener(
     (event) => {
 
         if (!arrastrando) {
+
             return;
         }
 
@@ -1025,7 +1247,9 @@ carousel.addEventListener(
 
 
         const actual =
-            items[indiceActual];
+            items[
+                indiceActual
+            ];
 
 
         actual.style.transition =
@@ -1036,7 +1260,13 @@ carousel.addEventListener(
             `translateY(${movimientoY}px) scale(1)`;
 
 
-        if (movimientoY < 0) {
+        // ==================================
+        // MOVIMIENTO HACIA ARRIBA
+        // ==================================
+
+        if (
+            movimientoY < 0
+        ) {
 
             const siguiente =
                 items[
@@ -1056,7 +1286,13 @@ carousel.addEventListener(
         }
 
 
-        if (movimientoY > 0) {
+        // ==================================
+        // MOVIMIENTO HACIA ABAJO
+        // ==================================
+
+        if (
+            movimientoY > 0
+        ) {
 
             const anterior =
                 items[
@@ -1087,6 +1323,7 @@ carousel.addEventListener(
     () => {
 
         if (!arrastrando) {
+
             return;
         }
 
@@ -1099,7 +1336,9 @@ carousel.addEventListener(
             "grab";
 
 
-        // CLICK
+        // ==================================
+        // CLICK / TOQUE
+        // ==================================
 
         if (
             Math.abs(
@@ -1107,7 +1346,9 @@ carousel.addEventListener(
             ) <= limiteClick
         ) {
 
-            if (tarjetaPulsada) {
+            if (
+                tarjetaPulsada
+            ) {
 
                 abrirDocumento(
                     tarjetaPulsada
@@ -1125,6 +1366,10 @@ carousel.addEventListener(
         }
 
 
+        // ==================================
+        // ARRASTRE HACIA ARRIBA
+        // ==================================
+
         if (
             movimientoY <
             -limiteArrastre
@@ -1134,6 +1379,10 @@ carousel.addEventListener(
 
         }
 
+        // ==================================
+        // ARRASTRE HACIA ABAJO
+        // ==================================
+
         else if (
             movimientoY >
             limiteArrastre
@@ -1142,6 +1391,10 @@ carousel.addEventListener(
             anteriorTarjeta();
 
         }
+
+        // ==================================
+        // NO LLEGÓ AL LÍMITE
+        // ==================================
 
         else {
 
@@ -1177,7 +1430,7 @@ carousel.addEventListener(
 
 
 // ==========================================
-// RUEDA
+// RUEDA DEL MOUSE
 // ==========================================
 
 let wheelBloqueado =
@@ -1191,7 +1444,10 @@ carousel.addEventListener(
         event.preventDefault();
 
 
-        if (wheelBloqueado) {
+        if (
+            wheelBloqueado
+        ) {
+
             return;
         }
 
@@ -1200,7 +1456,9 @@ carousel.addEventListener(
             true;
 
 
-        if (event.deltaY > 0) {
+        if (
+            event.deltaY > 0
+        ) {
 
             siguienteTarjeta();
 
@@ -1221,6 +1479,7 @@ carousel.addEventListener(
             },
             420
         );
+
     },
     {
         passive: false
@@ -1229,7 +1488,7 @@ carousel.addEventListener(
 
 
 // ==========================================
-// TECLADO CARRUSEL
+// TECLADO DEL CARRUSEL
 // ==========================================
 
 document.addEventListener(
@@ -1265,7 +1524,7 @@ document.addEventListener(
 
 
 // ==========================================
-// MODAL
+// ACTUALIZAR MODAL
 // ==========================================
 
 function actualizarModal() {
@@ -1372,7 +1631,7 @@ modalBackdrop.addEventListener(
 
 
 // ==========================================
-// TEXTO PARA COMPARTIR
+// CREAR TEXTO PARA COMPARTIR
 // ==========================================
 
 function crearTextoCompartir() {
@@ -1398,7 +1657,8 @@ function crearTextoCompartir() {
             }
 
 
-            texto += "\n";
+            texto +=
+                "\n";
         }
     );
 
@@ -1413,11 +1673,14 @@ function crearTextoCompartir() {
 
 function compartirArchivos() {
 
-    if (!navigator.share) {
+    if (
+        !navigator.share
+    ) {
 
         alert(
             "Este navegador no permite compartir directamente. Prueba desde Chrome, Safari o un teléfono compatible."
         );
+
 
         return false;
     }
@@ -1425,15 +1688,19 @@ function compartirArchivos() {
 
     const datos =
         {
+
             title:
                 "Documentos de Luis Luna",
 
             text:
                 crearTextoCompartir()
+
         };
 
 
-    // Adjuntar archivos si es compatible
+    // ======================================
+    // ADJUNTAR ARCHIVOS
+    // ======================================
 
     if (
         archivosPreparados.length > 0 &&
@@ -1443,10 +1710,12 @@ function compartirArchivos() {
         try {
 
             if (
-                navigator.canShare({
-                    files:
-                        archivosPreparados
-                })
+                navigator.canShare(
+                    {
+                        files:
+                            archivosPreparados
+                    }
+                )
             ) {
 
                 datos.files =
@@ -1466,10 +1735,12 @@ function compartirArchivos() {
 
 
     // IMPORTANTE:
-    // navigator.share se ejecuta directamente
-    // durante pointerup del slider.
+    // navigator.share se ejecuta
+    // directamente desde el gesto.
 
-    navigator.share(datos)
+    navigator.share(
+        datos
+    )
         .then(
             () => {
 
@@ -1502,7 +1773,7 @@ function compartirArchivos() {
 
 
 // ==========================================
-// SLIDER
+// SLIDER COMPARTIR
 // ==========================================
 
 let shareDragging =
@@ -1658,7 +1929,10 @@ shareHandle.addEventListener(
     "pointermove",
     (event) => {
 
-        if (!shareDragging) {
+        if (
+            !shareDragging
+        ) {
+
             return;
         }
 
@@ -1711,7 +1985,10 @@ shareHandle.addEventListener(
     "pointerup",
     (event) => {
 
-        if (!shareDragging) {
+        if (
+            !shareDragging
+        ) {
+
             return;
         }
 
@@ -1734,6 +2011,7 @@ shareHandle.addEventListener(
         }
 
         catch (error) {
+
             // No es grave.
         }
 
@@ -1786,17 +2064,16 @@ shareHandle.addEventListener(
             );
 
 
-            // MUY IMPORTANTE:
-            // No usamos setTimeout aquí.
-            // Compartir debe ejecutarse dentro
-            // del gesto directo del usuario.
+            // Sin setTimeout.
+            // Debe mantenerse dentro
+            // del gesto del usuario.
 
             compartirArchivos();
 
         }
 
         // ==================================
-        // NO LLEGÓ
+        // NO LLEGÓ AL FINAL
         // ==================================
 
         else {
@@ -1872,7 +2149,7 @@ shareHandle.addEventListener(
 
 
 // ==========================================
-// ESC
+// ESC PARA CERRAR MODAL
 // ==========================================
 
 document.addEventListener(
